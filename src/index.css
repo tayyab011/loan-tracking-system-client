@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui" {
+
+   themes: autumn --default, dark --prefersdark;
+
+ }
+
+ @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+*{
+ font-family: "Exo 2", sans-serif;
+
+} 
