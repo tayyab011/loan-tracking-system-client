@@ -1,8 +1,11 @@
 import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../provider/AuthContext';
+import useRole from '../hooks/useRole';
 
 const Navbar = () => {
+  const {role}=useRole()
+  console.log(role)
   const { user, logout } = use(AuthContext);
      const [theme, setTheme] = useState(
        localStorage.getItem("theme") || "autumn"
@@ -30,7 +33,7 @@ const Navbar = () => {
         {user && (
           <li className="">
             {" "}
-            <NavLink to="/">Dashboard</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
         )}
       </>
