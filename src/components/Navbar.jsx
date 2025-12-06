@@ -7,9 +7,12 @@ const Navbar = () => {
   const {role}=useRole()
   console.log(role)
   const { user, logout } = use(AuthContext);
-     const [theme, setTheme] = useState(
+   /*   const [theme, setTheme] = useState(
        localStorage.getItem("theme") || "autumn"
-     );
+     ); */
+     const [theme, setTheme] = useState(() => {
+       return localStorage.getItem("theme") || "autumn";
+     });
      useEffect(() => {
        const html = document.querySelector("html");
        html.setAttribute("data-theme", theme);
@@ -81,13 +84,23 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{link}</ul>
           </div>
           <div className="navbar-end gap-4">
-            <label class="ui-switch">
+            {/*   <label class="ui-switch">
               <input
                 onChange={(e) => handleTheme(e.target.checked)}
                 type="checkbox"
               />
               <div class="slider">
                 <div class="circle"></div>
+              </div>
+            </label> */}
+            <label className="ui-switch">
+              <input
+                type="checkbox"
+                checked={theme === "dark"}
+                onChange={(e) => handleTheme(e.target.checked)}
+              />
+              <div className="slider">
+                <div className="circle"></div>
               </div>
             </label>
             {user ? (
@@ -99,8 +112,12 @@ const Navbar = () => {
             ) : (
               <>
                 {" "}
-                <Link to="/login" className="btn">Login</Link>
-                <Link to="register" className="btn">Register</Link>
+                <Link to="/login" className="btn">
+                  Login
+                </Link>
+                <Link to="register" className="btn">
+                  Register
+                </Link>
               </>
             )}
           </div>

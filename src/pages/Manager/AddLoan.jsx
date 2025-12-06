@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AddLoan = () => {
     const useaxiosSecure=useAxiosSecure()
@@ -40,7 +41,14 @@ const AddLoan = () => {
        date: data.date,
      };
      const res = await useaxiosSecure.post(`/loans`, loanDatas);
-     console.log(res)
+    if (res.data.acknowledged) {
+      Swal.fire({
+                   position: "top-end",
+                   title: "User Created Successfully",
+                   icon: "success",
+                   timer: 1500,
+                 });
+    }
   };
 
   return (
@@ -108,7 +116,7 @@ const AddLoan = () => {
               className="input input-bordered w-full"
               placeholder="12"
             />
-            {errors.description && (
+            {errors.interestRate && (
               <p className="text-sm text-red-500">
                 {errors.interestRate.message}
               </p>
@@ -144,7 +152,7 @@ const AddLoan = () => {
               required: "Required document is mandatory",
             })}
             className="input input-bordered w-full"
-            placeholder="NID..."
+            placeholder="NID , TreadLicens , National id , ...(use comma)"
           />
           {errors.requiredDocuments && (
             <p className="text-sm text-red-500">
