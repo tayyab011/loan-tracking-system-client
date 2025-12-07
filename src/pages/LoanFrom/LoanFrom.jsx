@@ -34,6 +34,7 @@ const LoanFrom = () => {
   const onSubmit = async (data) => {
     const applicationData = {
       borrowerEmail: user.email,
+      borrowerName: user.displayName,
       loanId: loan._id,
       loanTitle: loan.title,
       interestRate: loan.interestRate,

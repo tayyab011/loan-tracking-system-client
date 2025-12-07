@@ -12,7 +12,7 @@ import ApproveLoan from './../pages/Manager/ApproveLoan';
 import AllLoan from './../pages/allLoan/AllLoan';
 import LoanDetails from "../pages/loanDetails/LoanDetails";
 import LoanFrom from './../pages/LoanFrom/LoanFrom';
-import MyLoan from './../pages/Borrower/MyLoan';
+import MyLoan from '../pages/Borrower Dashboard/MyLoan';
 
 export const router = createBrowserRouter([
   {

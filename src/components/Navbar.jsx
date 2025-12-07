@@ -4,7 +4,7 @@ import { AuthContext } from '../provider/AuthContext';
 import useRole from '../hooks/useRole';
 
 const Navbar = () => {
-  const {role}=useRole()
+  const { role, isLoading } = useRole();
   console.log(role)
   const { user, logout } = use(AuthContext);
    /*   const [theme, setTheme] = useState(
