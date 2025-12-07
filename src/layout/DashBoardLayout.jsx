@@ -1,9 +1,14 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
+import Loader from "../components/Loader";
 
 const DashBoardLayout = () => {
-  const {role}=useRole()
+  const { role, isLoading } = useRole();
+
+  if (isLoading) {
+    return <Loader/>
+  }
   return (
     <div className="drawer lg:drawer-open">
       {/* toggle for mobile */}

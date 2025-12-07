@@ -13,6 +13,8 @@ import AllLoan from './../pages/allLoan/AllLoan';
 import LoanDetails from "../pages/loanDetails/LoanDetails";
 import LoanFrom from './../pages/LoanFrom/LoanFrom';
 import MyLoan from '../pages/Borrower Dashboard/MyLoan';
+import PrivateRoute from "./PrivateRoute";
+import ManagerRout from "./ManagerRout";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +35,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "loan/:id",
-        element: <LoanDetails />,
+        element: (
+          <PrivateRoute>
+            <LoanDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "login",
@@ -56,24 +62,36 @@ export const router = createBrowserRouter([
       },
       {
         path: "myloan",
-        element: <MyLoan/>,
+        element: <MyLoan />,
       },
-     
+
       {
         path: "manage-loans",
         element: <ManageLoan />,
       },
       {
         path: "add-loan",
-        element: <AddLoan />,
+        element: (
+          <ManagerRout>
+            <AddLoan />
+          </ManagerRout>
+        ),
       },
       {
         path: "pending-loans",
-        element: <PendingLoan />,
+        element: (
+          <ManagerRout>
+            <PendingLoan />
+          </ManagerRout>
+        ),
       },
       {
         path: "approved-loans",
-        element: <ApproveLoan />,
+        element: (
+          <ManagerRout>
+            <ApproveLoan />
+          </ManagerRout>
+        ),
       },
     ],
   },
