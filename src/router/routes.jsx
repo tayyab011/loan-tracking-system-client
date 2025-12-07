@@ -12,6 +12,7 @@ import ApproveLoan from './../pages/Manager/ApproveLoan';
 import AllLoan from './../pages/allLoan/AllLoan';
 import LoanDetails from "../pages/loanDetails/LoanDetails";
 import LoanFrom from './../pages/LoanFrom/LoanFrom';
+import MyLoan from './../pages/Borrower/MyLoan';
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "apply-loan/:id",
-        element: <LoanFrom/>,
+        element: <LoanFrom />,
       },
       {
         path: "loan/:id",
@@ -53,6 +54,11 @@ export const router = createBrowserRouter([
         index: true,
         element: <Dashboard />,
       },
+      {
+        path: "myloan",
+        element: <MyLoan/>,
+      },
+     
       {
         path: "manage-loans",
         element: <ManageLoan />,

@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, Outlet } from "react-router";
+import useRole from "../hooks/useRole";
 
 const DashBoardLayout = () => {
+  const {role}=useRole()
   return (
     <div className="drawer lg:drawer-open">
       {/* toggle for mobile */}
@@ -38,17 +40,35 @@ const DashBoardLayout = () => {
           <li>
             <Link to="/dashboard"> Dashboard</Link>
           </li>
+          {role === "manager" && (
+            <>
+              <li>
+                <Link to="/dashboard/add-loan">➕ Add Loan</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/manage-loans">📋 Manage Loans</Link>
+              </li>
+              <li>
+                <Link to="/dashboard/pending-loans">
+                  📋 Pending Applications
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/approved-loans">
+                  📋 Approved Applications
+                </Link>
+              </li>
+            </>
+          )}
+          {role === "borrower" && (
+            <>
+              <li>
+                <Link to="/dashboard/myloan">➕ My Loans</Link>
+              </li>
+            </>
+          )}
           <li>
-            <Link to="/dashboard/add-loan">➕ Add Loan</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/manage-loans">📋 Manage Loans</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/pending-loans">📋 Pending Applications</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/approved-loans">📋 Approved Applications</Link>
+            <Link to="/dashboard/myProfile">➕ My Profile</Link>
           </li>
         </ul>
       </div>
