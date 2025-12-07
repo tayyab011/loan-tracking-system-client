@@ -9,11 +9,10 @@ const AddLoan = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     control,
   } = useForm({
     mode: "onTouched",
-   
   });
 
 
@@ -168,14 +167,13 @@ const AddLoan = () => {
             {" "}
             <label className="label">
               <span className="label-text">Emi Plans for loans</span>
-             
             </label>
             <input
               {...register(`emiPlans`, {
                 required: "emi required",
               })}
               className="input input-bordered col-span-7"
-              placeholder="emiPlans"
+              placeholder="9 month / 10 month etc.."
             />
             {errors.emiPlans && (
               <p className="text-sm text-red-500">{errors.emiPlans.message}</p>
@@ -188,7 +186,6 @@ const AddLoan = () => {
             </label>
             <input
               type="file"
-             
               {...register(`image`, {
                 required: "Image required",
               })}
@@ -227,7 +224,7 @@ const AddLoan = () => {
         {/* Submit */}
         <div className="text-right">
           <button type="submit" className="btn btn-primary">
-            Add Loan
+            {isSubmitting ? "Adding..." : "Add Loan"}
           </button>
         </div>
       </form>

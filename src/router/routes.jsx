@@ -9,6 +9,9 @@ import ManageLoan from "../pages/Manager/ManageLoan";
 import AddLoan from "../pages/Manager/AddLoan";
 import PendingLoan from './../pages/Manager/PendingLoan';
 import ApproveLoan from './../pages/Manager/ApproveLoan';
+import AllLoan from './../pages/allLoan/AllLoan';
+import LoanDetails from "../pages/loanDetails/LoanDetails";
+import LoanFrom from './../pages/LoanFrom/LoanFrom';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +21,18 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "all-loan",
+        element: <AllLoan />,
+      },
+      {
+        path: "apply-loan/:id",
+        element: <LoanFrom/>,
+      },
+      {
+        path: "loan/:id",
+        element: <LoanDetails />,
       },
       {
         path: "login",
@@ -48,11 +63,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "pending-loans",
-        element: <PendingLoan/>,
+        element: <PendingLoan />,
       },
       {
         path: "approved-loans",
-        element: <ApproveLoan/>,
+        element: <ApproveLoan />,
       },
     ],
   },

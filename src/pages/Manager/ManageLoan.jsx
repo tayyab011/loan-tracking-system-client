@@ -11,7 +11,7 @@ const ManageLoan = () => {
 
   const useaxiosSecure = useAxiosSecure();
 
-  const { data: manageLoan = [] } = useQuery({
+  const { data: manageLoan = [],refetch } = useQuery({
     queryKey: ["manage-loan"],
     queryFn: async () => {
       const res = await useaxiosSecure.get("/loans");
@@ -68,7 +68,32 @@ const ManageLoan = () => {
     console.log("Updated Loan:", res);
     setModal(null);
   };
+const deleteLoan=(id)=>{
+Swal.fire({
+  title: "Are you sure?",
+ 
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!",
+}).then(async (result) => {
+  if (result.isConfirmed) {
+const res = await useaxiosSecure.delete(`/loans/${id}`)
+console.log(res)
+if (res.data.acknowledged) {
+  refetch();
+   Swal.fire({
+     title: "Deleted!",
+     text: "Your loan data has been deleted.",
+     icon: "success",
+   });
+}
 
+    /* */
+  }
+});
+}
   return (
     <div>
       <h1>Manage Loan ({manageLoan.length})</h1>
@@ -109,7 +134,7 @@ const ManageLoan = () => {
                   >
                     Update
                   </button>
-                  <button className="btn btn-xs btn-error">Delete</button>
+                  <button onClick={()=>deleteLoan(loan._id)} className="btn btn-xs btn-error">Delete</button>
                 </td>
               </tr>
             ))}

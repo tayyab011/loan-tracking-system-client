@@ -45,10 +45,10 @@ const DashBoardLayout = () => {
             <Link to="/dashboard/manage-loans">📋 Manage Loans</Link>
           </li>
           <li>
-            <Link to="/dashboard/pending-loans">📋 Pending Loans</Link>
+            <Link to="/dashboard/pending-loans">📋 Pending Applications</Link>
           </li>
           <li>
-            <Link to="/dashboard/approved-loans">📋 Approve Loans</Link>
+            <Link to="/dashboard/approved-loans">📋 Approved Applications</Link>
           </li>
         </ul>
       </div>
