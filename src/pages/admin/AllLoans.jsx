@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const AllLoans = () => {
+     const [modal, setModal] = useState(null);
+      const [selectedImage, setSelectedImage] = useState("");
   const axiosSecure = useAxiosSecure();
 
   const { data: loans = [], refetch } = useQuery({
@@ -13,7 +18,18 @@ const AllLoans = () => {
     },
   });
 
-  // ✅ Delete loan
+
+   const updateLoan = (loan) => {
+      setModal(loan);
+      setSelectedImage(loan.image);
+    };
+  
+    const {
+      register,
+      handleSubmit,
+      formState: { errors ,isSubmitting},
+    } = useForm({ mode: "onTouched" });
+  //  Delete loan
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -23,21 +39,60 @@ const AllLoans = () => {
       confirmButtonText: "Yes, delete",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axiosSecure.delete(`/loan/${id}`);
+        await axiosSecure.delete(`/loansDelete/${id}`);
         refetch();
         Swal.fire("Deleted!", "Loan has been deleted.", "success");
       }
     });
   };
 
-  // ✅ Toggle show on home
+  //  Toggle show on home
   const toggleShowHome = async (loan) => {
-    await axiosSecure.patch(`/loan/${loan._id}`, {
+   const res= await axiosSecure.put(`/loan-admin-showonhome/${loan._id}`, {
       showOnHome: !loan.showOnHome,
     });
+    console.log(res)
     refetch();
   };
+const onLoanSubmit = async (data) => {
+    let loanImg = selectedImage; // আগের image
 
+    // যদি নতুন image select করা হয়
+    if (data.image && data.image.length > 0) {
+      const formData = new FormData();
+      formData.append("image", data.image[0]);
+      const imgdata = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`,
+        formData
+      );
+      loanImg = imgdata.data.data.url;
+    }
+
+    const loanDatas = {
+      title: data.title,
+      description: data.description,
+      category: data.category,
+      interestRate: parseInt(data.interestRate),
+      maxLoanLimit: parseInt(data.maxLoanLimit),
+      requiredDocuments: data.requiredDocuments,
+      emiPlans: data.emiPlans,
+      image: loanImg, // আগের বা নতুন image
+      showOnHome: data.showOnHome,
+    };
+
+    const res = await axiosSecure.put(`/loans/${modal._id}`, loanDatas);
+    if (res.data.acknowledged) {
+        refetch()
+         Swal.fire({
+                           position: "top-end",
+                           title: "Loan Updated Successfull",
+                           icon: "success",
+                           timer: 1500,
+                         });
+    }
+ /*    console.log("Updated Loan:", res); */
+    setModal(null);
+  };
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">
@@ -80,14 +135,19 @@ const AllLoans = () => {
                 <td>
                   <input
                     type="checkbox"
-                    checked={loan.showOnHome}
+                    defaultChecked={loan.showOnHome}
                     onChange={() => toggleShowHome(loan)}
                     className="toggle toggle-success"
                   />
                 </td>
 
                 <td className="space-x-2">
-                  <button className="btn btn-xs btn-info">Update</button>
+                  <button
+                    onClick={() => updateLoan(loan)}
+                    className="btn btn-xs btn-info"
+                  >
+                    Update
+                  </button>
 
                   <button
                     onClick={() => handleDelete(loan._id)}
@@ -100,6 +160,164 @@ const AllLoans = () => {
             ))}
           </tbody>
         </table>
+
+        {modal && (
+          <dialog id="my_modal_3" className="modal modal-open">
+            <div className="modal-box">
+              <form onSubmit={handleSubmit(onLoanSubmit)} className="space-y-4">
+                {/* Loan Title */}
+                <div>
+                  <label className="label">
+                    <span className="label-text">Loan Title *</span>
+                  </label>
+                  <input
+                    {...register("title", { required: true })}
+                    type="text"
+                    defaultValue={modal.title}
+                    className="input input-bordered w-full"
+                  />
+                  {errors.title && (
+                    <p className="text-red-500 text-sm">Title is required</p>
+                  )}
+                </div>
+
+                {/* Description */}
+                <div>
+                  <label className="label">
+                    <span className="label-text">Description *</span>
+                  </label>
+                  <textarea
+                    {...register("description", { required: true })}
+                    defaultValue={modal.description}
+                    className="textarea textarea-bordered w-full"
+                    rows={3}
+                  />
+                  {errors.description && (
+                    <p className="text-red-500 text-sm">
+                      Description is required
+                    </p>
+                  )}
+                </div>
+
+                {/* Category | Interest | Max Limit */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div>
+                    {" "}
+                    <label className="label">
+                      <span className="label-text">Category *</span>
+                    </label>
+                    <input
+                      {...register("category", { required: true })}
+                      defaultValue={modal.category}
+                      className="input input-bordered"
+                      placeholder="Category"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Interest Rate *</span>
+                    </label>
+                    <input
+                      {...register("interestRate", { required: true })}
+                      defaultValue={modal.interestRate}
+                      className="input input-bordered"
+                      placeholder="Interest Rate (%)"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label">
+                      <span className="label-text">Max Loan Limit*</span>
+                    </label>
+                    <input
+                      {...register("maxLoanLimit", { required: true })}
+                      defaultValue={modal.maxLoanLimit}
+                      className="input input-bordered"
+                      placeholder="Max Loan Limit"
+                    />
+                  </div>
+                </div>
+
+                {/* Required Documents */}
+                <div>
+                  <label className="label">
+                    <span className="label-text">Required Documents</span>
+                  </label>
+                  <input
+                    {...register("requiredDocuments", { required: true })}
+                    defaultValue={modal.requiredDocuments}
+                    className="input input-bordered w-full"
+                    placeholder="NID, Passport, Bank Statement"
+                  />
+                  {errors.requiredDocuments && (
+                    <p className="text-red-500 text-sm">
+                      Required Documents are required
+                    </p>
+                  )}
+                </div>
+
+                {/* EMI Plans */}
+                <div>
+                  <label className="label">
+                    <span className="label-text">EMI Plans</span>
+                  </label>
+                  <input
+                    {...register("emiPlans")}
+                    defaultValue={modal.emiPlans}
+                    className="input input-bordered w-full"
+                  />
+                </div>
+
+                {/* Image */}
+                <div>
+                  <label className="label">
+                    <span className="label-text">Image</span>
+                  </label>
+                  <input
+                    type="file"
+                    {...register("image")}
+                    className="input input-bordered cursor-pointer w-full"
+                  />
+                  {selectedImage && (
+                    <img
+                      src={selectedImage}
+                      className="w-24 h-24 object-cover mt-2 rounded"
+                    />
+                  )}
+                </div>
+
+                {/* Show on Home toggle */}
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    {...register("showOnHome")}
+                    defaultChecked={modal.showOnHome}
+                    className="toggle toggle-primary"
+                  />
+                  <span>Show on Home</span>
+                </div>
+
+                {/* Submit buttons */}
+                <div className="modal-action">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={() => setModal(null)}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn btn-primary">
+                    {isSubmitting?"Updating.....":"Update"}
+                  </button>
+                </div>
+              </form>
+
+              <p className="py-4">
+                Press ESC key or click on ✕ button to close
+              </p>
+            </div>
+          </dialog>
+        )}
       </div>
     </div>
   );
