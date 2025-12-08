@@ -4,12 +4,10 @@ import { AuthContext } from '../provider/AuthContext';
 import useRole from '../hooks/useRole';
 
 const Navbar = () => {
-  const { role, isLoading } = useRole();
+  const { role } = useRole();
   console.log(role)
   const { user, logout } = use(AuthContext);
-   /*   const [theme, setTheme] = useState(
-       localStorage.getItem("theme") || "autumn"
-     ); */
+ 
      const [theme, setTheme] = useState(() => {
        return localStorage.getItem("theme") || "autumn";
      });
@@ -27,7 +25,7 @@ const Navbar = () => {
           <NavLink to="/all-loan">All-Loans</NavLink>
         </li>
         <li className="">
-          <NavLink to="/">About Us</NavLink>
+          <NavLink to="/aboutus">About Us</NavLink>
         </li>
         <li className="">
           <NavLink to="/">Contact</NavLink>

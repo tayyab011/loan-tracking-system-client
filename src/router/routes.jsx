@@ -19,6 +19,8 @@ import ManageUsers from "../pages/admin/ManageUsers";
 import AllLoans from "../pages/admin/AllLoans";
 import LoanApplication from './../pages/admin/LoanApplication';
 import AdminRoute from "./AdminRoute";
+import Profile from "../pages/userPrifile.jsx/Profile";
+import AboutUs from './../pages/Aboutus';
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "all-loan",
         element: <AllLoan />,
+      },
+      {
+        path: "aboutus",
+        element: <AboutUs/>,
       },
       {
         path: "apply-loan/:id",
@@ -120,25 +126,39 @@ export const router = createBrowserRouter([
       {
         path: "manage-users",
         element: (
-          <AdminRoute>
-            <ManageUsers />
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "allloans",
         element: (
-          <AdminRoute>
-            <AllLoans />
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <AllLoans />
+            </AdminRoute>
+          </PrivateRoute>
         ),
       },
       {
         path: "loan-applications",
         element: (
-          <AdminRoute>
-            <LoanApplication />,
-          </AdminRoute>
+          <PrivateRoute>
+            <AdminRoute>
+              <LoanApplication />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myProfile",
+        element: (
+          <PrivateRoute>
+            <Profile/>
+          </PrivateRoute>
         ),
       },
     ],

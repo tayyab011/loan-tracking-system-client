@@ -89,7 +89,9 @@ const DashBoardLayout = () => {
                   <Link to="/dashboard/allloans">➕ All Loans</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/loan-applications">➕ Loan Application</Link>
+                  <Link to="/dashboard/loan-applications">
+                    ➕ Loan Application
+                  </Link>
                 </li>
               </>
             )}
