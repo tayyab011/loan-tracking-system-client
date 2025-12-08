@@ -15,6 +15,8 @@ import LoanFrom from './../pages/LoanFrom/LoanFrom';
 import MyLoan from '../pages/Borrower Dashboard/MyLoan';
 import PrivateRoute from "./PrivateRoute";
 import ManagerRout from "./ManagerRout";
+import ManageUsers from "../pages/admin/ManageUsers";
+import AllLoans from "../pages/admin/AllLoans";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +93,22 @@ export const router = createBrowserRouter([
           <ManagerRout>
             <ApproveLoan />
           </ManagerRout>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+         
+         <ManageUsers/>
+         
+        ),
+      },
+      {
+        path: "allloans",
+        element: (
+         
+         <AllLoans/>
+         
         ),
       },
     ],

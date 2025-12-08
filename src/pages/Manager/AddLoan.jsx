@@ -1,10 +1,12 @@
 import axios from "axios";
-import React from "react";
+import React, { use } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../provider/AuthContext";
 
 const AddLoan = () => {
+  const {user}=use(AuthContext)
     const useaxiosSecure=useAxiosSecure()
   const {
     register,
@@ -38,6 +40,10 @@ const AddLoan = () => {
        image: loanImg,
        showOnHome: data.showOnHome,
        date: data.date,
+       createdBy:{
+        creatorName:user?.displayName,
+        creatorEmail:user?.email,
+       }
      };
      const res = await useaxiosSecure.post(`/loans`, loanDatas);
     if (res.data.acknowledged) {
