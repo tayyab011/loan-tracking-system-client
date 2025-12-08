@@ -18,6 +18,7 @@ import ManagerRout from "./ManagerRout";
 import ManageUsers from "../pages/admin/ManageUsers";
 import AllLoans from "../pages/admin/AllLoans";
 import LoanApplication from './../pages/admin/LoanApplication';
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -118,15 +119,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "allloans",
-        element: <AllLoans />,
+        element: (
+          <AdminRoute>
+            <AllLoans />
+          </AdminRoute>
+        ),
       },
       {
         path: "loan-applications",
-        element: <LoanApplication/>,
+        element: (
+          <AdminRoute>
+            <LoanApplication />,
+          </AdminRoute>
+        ),
       },
     ],
   },
