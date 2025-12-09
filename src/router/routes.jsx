@@ -21,6 +21,8 @@ import LoanApplication from './../pages/admin/LoanApplication';
 import AdminRoute from "./AdminRoute";
 import Profile from "../pages/userPrifile.jsx/Profile";
 import AboutUs from './../pages/Aboutus';
+import PaymentSuccessFull from "../pages/payments/PaymentSuccessFull";
+import PaymentCancel from "../pages/payments/PaymentCancle";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +81,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyLoan />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-success",
+        element: (
+          <PrivateRoute>
+            <PaymentSuccessFull/>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-cancle",
+        element: (
+          <PrivateRoute>
+            <PaymentCancel/>
           </PrivateRoute>
         ),
       },

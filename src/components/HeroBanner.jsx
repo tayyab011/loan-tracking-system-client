@@ -9,7 +9,8 @@ const HeroBanner = () => {
           className="w-full h-full bg-no-repeat bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1zKjJpKfpURSxbrAznWh91BdHoZ03IJjYvw&s')",
+              "url('https://www.getzype.com/wp-content/uploads/2024/08/model-house-pile-coins-businessman-holding-coins-real-estate-investment-ideas-home-loans-new-home-loans-lowinterest-rates-homes-1-1.png.webp')",
+             
           }}
         ></div>
       </div>

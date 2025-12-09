@@ -53,6 +53,7 @@ updatestatus(id,status)
                 <th>Borrower Name</th>
                 <th>Borrower Email</th>
                 <th>Loan Amount</th>
+                <th>Payment Status</th>
                 <th>Date</th>
                 <th>Action</th>
               </tr>
@@ -65,6 +66,7 @@ updatestatus(id,status)
                   <td>Quality Control Specialist</td>
                   <td>{pending?.borrowerEmail}</td>
                   <td>{pending?.loanAmount?.toString()}</td>
+                  <td>{pending?.applicationFeeStatus}</td>
                   <td>{new Date(pending?.appliedAt).toLocaleDateString()}</td>
                   <td className="flex gap-2">
                     <button

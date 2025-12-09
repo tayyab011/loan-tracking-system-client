@@ -46,7 +46,20 @@ const MyLoan = () => {
     }
   };
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  const handlePayment=async(loan)=>{
+const paymentInfo = {
+  loanApplicationsId: loan._id,
+  loanId: loan.loanId,
+  loanTitle: loan.loanTitle,
+  borrowerName: loan.borrowerName,
+  borrowerEmail: loan.borrowerEmail,
+  price:loan.price
+};
+ const res =await axiosSecure.post("/create-checkout-session", paymentInfo);
+ 
+ window.location.href = res.data.url;
+  }
+  if (isLoading) {return <p className="text-center mt-10">Loading...</p>};
 
   return (
     <div className="p-4">
@@ -87,7 +100,10 @@ const MyLoan = () => {
                       loan.status === "approved"
                         ? "badge-success"
                         : loan.status === "rejected"
-                        ? "badge-error" :loan.status ==="canceled"? "badge-info": "badge-warning"
+                        ? "badge-error"
+                        : loan.status === "canceled"
+                        ? "badge-info"
+                        : "badge-warning"
                     }`}
                   >
                     {loan.status}
@@ -103,28 +119,47 @@ const MyLoan = () => {
                     View
                   </Link>
 
-                  {/* Cancel */}
-                  {loan.status === "pending" && (
-                    <button
-                      onClick={() => handleCancel(loan._id)}
-                      className="btn btn-xs btn-error"
-                    >
-                      Cancel
-                    </button>
+                  {/* ✅ PAID */}
+                  {loan.applicationFeeStatus === "paid" && (
+                    <span className="badge badge-success">Paid</span>
                   )}
 
-                  {/* Pay / Paid */}
-                  {
-                    loan.status !=="canceled" ? <> 
-                  {
-                    loan.status !=="canceled" && loan.applicationFeeStatus === "unpaid" ? (
-                    <button className="btn btn-xs btn-primary">Pay</button>
-                  ) : (
-                    <span className="badge badge-success">Paid</span>
-                  )
-                  }</>:null
-                  }
-                  
+                  {/* ❌ CANCELLED + NEW PAYMENT */}
+                  {loan.status === "canceled" &&
+                    loan.applicationFeeStatus !== "paid" && (
+                      <>
+                      {/*   <span className="badge badge-error">Cancelled</span> */}
+
+                        {/* <button
+                          onClick={() => handlePayment(loan)}
+                          className="btn btn-xs btn-primary"
+                        >
+                          New Payment
+                        </button> */}
+                      </>
+                    )}
+
+                  {/* 💳 PAY */}
+                  {loan.status !== "canceled" &&
+                    loan.applicationFeeStatus === "unpaid" && (
+                      <button
+                        onClick={() => handlePayment(loan)}
+                        className="btn btn-xs btn-primary"
+                      >
+                        Pay
+                      </button>
+                    )}
+
+                  {/* ❌ CANCEL (only when unpaid) */}
+                  {loan.status === "pending" &&
+                    loan.applicationFeeStatus !== "paid" && (
+                      <button
+                        onClick={() => handleCancel(loan._id)}
+                        className="btn btn-xs btn-error"
+                      >
+                        Cancel
+                      </button>
+                    )}
                 </td>
               </tr>
             ))}

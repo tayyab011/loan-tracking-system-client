@@ -40,6 +40,7 @@ const AddLoan = () => {
        image: loanImg,
        showOnHome: data.showOnHome,
        date: data.date,
+       
        createdBy:{
         creatorName:user?.displayName,
         creatorEmail:user?.email,
