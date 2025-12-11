@@ -44,7 +44,7 @@ export default function HowItWorks() {
           How It Works
         </motion.h2>
 
-        <p className=" max-w-2xl mx-auto text-sm md:text-base">
+        <p className=" max-w-2xl mx-auto font-bold  text-sm md:text-base">
           Follow these simple steps to apply for a loan quickly and securely.
         </p>
       </div>
@@ -60,9 +60,7 @@ export default function HowItWorks() {
           >
             <div className="mb-3">{step.icon}</div>
 
-            <h3 className="text-lg md:text-xl font-semibold  mb-2">
-              {step.title}
-            </h3>
+            <h3 className="text-lg md:text-xl font-bold  mb-2">{step.title}</h3>
 
             <p className=" text-sm leading-relaxed">{step.description}</p>
           </motion.div>

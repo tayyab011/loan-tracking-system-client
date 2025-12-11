@@ -8,7 +8,7 @@ import useAxios from "../../hooks/useAxios";
 const Registration = () => {
 const useaxios=useAxios()
   const navigate=useNavigate()
-    const { registerUger, updateUser } = use(AuthContext);
+    const { registerUger, updateUser, loading } = use(AuthContext);
    const {
      register,
      handleSubmit,
@@ -71,7 +71,9 @@ const onSubmits = async (data) => {
     });
   }
 };
-
+ if (loading) {
+      return <Loader/>
+    }
   return (
     <div className="min-h-screen flex justify-center items-center  p-4">
       <div
@@ -191,7 +193,7 @@ const onSubmits = async (data) => {
             >
               {isSubmitting ? "Loading..." : "Register"}
             </button>
-            <div className="divider text-[#B5F6EB]">OR</div>
+           
 
             <p className="text-[#B5F6EB]">
               {" "}

@@ -3,6 +3,8 @@ import HeroBanner from '../components/HeroBanner';
 import AvailableLoans from '../components/AvailableLoans';
 import HowItWorks from '../components/HowitWorks';
 import CustomerReviews from '../components/CustomerReviews';
+import FAQSection from '../components/FAQSection';
+import FeatcherPlan from '../components/FeatcherPlan';
 
 
 const Home = () => {
@@ -12,6 +14,8 @@ const Home = () => {
         <AvailableLoans/>
         <HowItWorks/>
         <CustomerReviews/>
+        <FeatcherPlan/>
+        <FAQSection/>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../provider/AuthContext";
+import Loader from "../../components/Loader";
 
 const MyLoan = () => {
   const axiosSecure = useAxiosSecure();
@@ -59,7 +60,7 @@ const paymentInfo = {
  
  window.location.href = res.data.url;
   }
-  if (isLoading) {return <p className="text-center mt-10">Loading...</p>};
+  if (isLoading) {return <Loader/>};
 
   return (
     <div className="p-4">

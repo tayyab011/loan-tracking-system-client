@@ -23,10 +23,14 @@ import Profile from "../pages/userPrifile.jsx/Profile";
 import AboutUs from './../pages/Aboutus';
 import PaymentSuccessFull from "../pages/payments/PaymentSuccessFull";
 import PaymentCancel from "../pages/payments/PaymentCancle";
+import Contact from './../pages/Contact';
+import Loader from "../components/Loader";
+import Error404 from "../components/Error404";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    hydrateFallbackElement: <Loader />,
     element: <MainLayout />,
     children: [
       {
@@ -40,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "aboutus",
         element: <AboutUs />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
       },
       {
         path: "apply-loan/:id",
@@ -66,25 +74,26 @@ export const router = createBrowserRouter([
 
   {
     path: "dashboard",
+    hydrateFallbackElement: <Loader />,
     element: <DashBoardLayout />,
     children: [
-      /*  {
+      {
         index: true,
         element: (
           <PrivateRoute>
             <Dashboard />
           </PrivateRoute>
         ),
-      }, */
-      {
-        /*  path: "myProfile" */
+      },
+      /*   {
+        
         index: true,
         element: (
           <PrivateRoute>
             <Profile />
           </PrivateRoute>
         ),
-      },
+      }, */
       {
         path: "myloan",
         element: (
@@ -190,4 +199,8 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"*",
+    element:<Error404/>
+  }
 ]);

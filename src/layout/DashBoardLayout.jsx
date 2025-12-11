@@ -4,7 +4,15 @@ import useRole from "../hooks/useRole";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import { IoIosAddCircle } from "react-icons/io";
+import { FaDonate } from "react-icons/fa";
+import { GiTimeTrap } from "react-icons/gi";
+import { FcAcceptDatabase } from "react-icons/fc";
+import { FaUserAlt } from "react-icons/fa";
+import { FiUserCheck } from "react-icons/fi";
+import { FcMoneyTransfer } from "react-icons/fc";
+import { FaWpforms } from "react-icons/fa";
+import { GiMoneyStack } from "react-icons/gi";
 const DashBoardLayout = () => {
   const { role, isLoading } = useRole();
 
@@ -47,9 +55,7 @@ const DashBoardLayout = () => {
         <div className="drawer-side ">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-72 min-h-full bg-[#155C62]">
-            <li>
-              <Link to="/">🏠 Home</Link>
-            </li>
+            
             {/* <li>
               <Link to="/dashboard"> Dashboard</Link>
             </li> */}
@@ -62,7 +68,7 @@ const DashBoardLayout = () => {
                     }
                     to="/dashboard/add-loan"
                   >
-                    ➕ Add Loan
+                    <IoIosAddCircle /> Add Loan
                   </NavLink>
                 </li>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
@@ -72,7 +78,7 @@ const DashBoardLayout = () => {
                     }
                     to="/dashboard/manage-loans"
                   >
-                    📋 Manage Loans
+                    <FaDonate /> Manage Loans
                   </NavLink>
                 </li>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
@@ -82,7 +88,7 @@ const DashBoardLayout = () => {
                     }
                     to="/dashboard/pending-loans"
                   >
-                    📋 Pending Applications
+                    <GiTimeTrap /> Pending Applications
                   </NavLink>
                 </li>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
@@ -92,7 +98,7 @@ const DashBoardLayout = () => {
                     }
                     to="/dashboard/approved-loans"
                   >
-                    📋 Approved Applications
+                    <FcAcceptDatabase /> Approved Applications
                   </NavLink>
                 </li>
               </>
@@ -100,7 +106,14 @@ const DashBoardLayout = () => {
             {role === "borrower" && (
               <>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
-                  <Link to="/dashboard/myloan">➕ My Loans</Link>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base" : null
+                    }
+                    to="/dashboard/myloan"
+                  >
+                    <GiMoneyStack /> My Loans
+                  </NavLink>
                 </li>
               </>
             )}
@@ -108,22 +121,32 @@ const DashBoardLayout = () => {
               <>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
                   <NavLink
-                className={({ isActive }) =>
-                  isActive ? " font-black text-base" : null
-                } to="/dashboard/manage-users">➕ Manage User</NavLink>
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base" : null
+                    }
+                    to="/dashboard/manage-users"
+                  >
+                    <FiUserCheck /> Manage User
+                  </NavLink>
                 </li>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
                   <NavLink
-                className={({ isActive }) =>
-                  isActive ? " font-black text-base" : null
-                } to="/dashboard/allloans">➕ All Loans</NavLink>
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base" : null
+                    }
+                    to="/dashboard/allloans"
+                  >
+                    <FcMoneyTransfer /> All Loans
+                  </NavLink>
                 </li>
                 <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
                   <NavLink
-                className={({ isActive }) =>
-                  isActive ? " font-black text-base" : null
-                } to="/dashboard/loan-applications">
-                    ➕ Loan Application
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base" : null
+                    }
+                    to="/dashboard/loan-applications"
+                  >
+                    <FaWpforms /> Loan Application
                   </NavLink>
                 </li>
               </>
@@ -135,7 +158,7 @@ const DashBoardLayout = () => {
                 }
                 to="/dashboard/myProfile"
               >
-                ➕ My Profile
+                <FaUserAlt /> My Profile
               </NavLink>
             </li>
           </ul>

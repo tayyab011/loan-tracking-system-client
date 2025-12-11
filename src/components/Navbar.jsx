@@ -76,13 +76,18 @@ const Navbar = () => {
                 {link}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">daisyUI</a>
+            <Link to='/' className="btn btn-ghost text-xl">
+              <img
+              className='w-8 h-8 rounded-full'
+                src="https://t4.ftcdn.net/jpg/01/83/77/65/360_F_183776586_ETr3Lg7pmP2bw0dF2vyNlBaf93eM5TaA.jpg"
+                alt="logo"
+              />
+            </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{link}</ul>
           </div>
           <div className="navbar-end gap-4">
-           
             <label className="ui-switch">
               <input
                 type="checkbox"
@@ -95,9 +100,39 @@ const Navbar = () => {
             </label>
             {user ? (
               <>
-                <a onClick={logout} className="btn">
+                {/* <a onClick={logout} className="btn">
                   Logout
-                </a>
+                </a> */}
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt="Tailwind CSS Navbar component"
+                        src={user?.photoURL}
+                      />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex="-1"
+                    className="menu menu-sm dropdown-content text-[#B5F6EB] bg-[#155C62] rounded-box z-1 mt-3 w-52 p-2 shadow"
+                  >
+                    <li>
+                      <span className="py-2 font-black text-xl ">
+                        {" "}
+                        {user?.displayName}
+                      </span>
+                    </li>
+                    <li className="hover:bg-[#B5F6EB] hover:text-white duration-500 rounded-full">
+                      <a onClick={logout} className="font-bold">
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </>
             ) : (
               <>

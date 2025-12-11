@@ -19,11 +19,15 @@ const ApproveLoan = () => {
   
   return (
     <div>
-      Approved {approved.length}
+      <h1 className="text-2xl md:text-4xl font-bold my-5">
+        {" "}
+        Approved {approved.length}
+      </h1>
+
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
-          <thead className='font-bold'>
+          <thead className="font-bold">
             <tr>
               <th>#</th>
               <th>Loan ID</th>
@@ -33,7 +37,7 @@ const ApproveLoan = () => {
               <th>Date</th>
             </tr>
           </thead>
-          <tbody className='font-bold'>
+          <tbody className="font-bold">
             {approved?.map((approved, i) => (
               <tr key={approved._id}>
                 <th>{i + 1}</th>

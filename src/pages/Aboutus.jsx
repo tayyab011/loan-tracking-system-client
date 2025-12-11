@@ -1,10 +1,11 @@
-import React from "react";
-import tay from "/tay.png"
+import { GoGoal } from "react-icons/go";
+import tay from "/tay.png";
+import { GrAchievement } from "react-icons/gr";
 const teamMembers = [
   {
     name: "Md Tayyab",
     role: "Founder & MERN Stack Developer",
-    img: tay ,
+    img: tay,
   },
   {
     name: "Ayesha Khan",
@@ -26,43 +27,49 @@ const teamMembers = [
 const AboutUs = () => {
   return (
     <div className=" ">
-
       <section className="py-20 text-center px-6">
-        <h1 className="text-4xl font-bold mb-4">About Us</h1>
-        <p className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
+        <h1 className=" text-2xl md:text-5xl font-bold mb-4 text-[#1F887A]">
+          About Us
+        </h1>
+        <p className="max-w-2xl mx-auto text-lg text-[#1F887A] font-bold">
           We are a modern Loan Management Platform focused on transparency,
           security, and fast approvals — helping borrowers and lenders connect
           with confidence.
         </p>
       </section>
 
-      <section className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-6 mb-20">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-          <h3 className="text-xl font-semibold mb-2">🎯 Our Mission</h3>
-          <p className="text-gray-600 dark:text-gray-400">
+      <section className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-6 mb-20 ">
+        <div className=" p-6 rounded-xl shadow bg-[#155C62] text-[#B5F6EB]">
+          <h3 className="text-xl font-semibold mb-2">
+            <GoGoal /> Our Mission
+          </h3>
+          <p className="">
             To make loan processing simple, transparent, and accessible for
             everyone using secure digital solutions.
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-          <h3 className="text-xl font-semibold mb-2">🚀 Our Vision</h3>
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className=" p-6 rounded-xl shadow bg-[#155C62] text-[#B5F6EB]">
+          <h3 className="text-xl font-semibold mb-2">
+            <GrAchievement /> Our Vision
+          </h3>
+          <p className="">
             To become a trusted digital finance platform empowering users
             through smart loan management systems.
           </p>
         </div>
       </section>
 
- 
-      <section className="px-6 pb-24">
-        <h2 className="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
+      <section className="px-6 pb-24 ">
+        <h2 className="text-3xl md:text-5xl font-bold text-center mb-12 text-[#1F887A]">
+          Meet Our Team
+        </h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className=" rounded-xl shadow hover:shadow-xl transition overflow-hidden text-center"
+              className="bg-[#155C62] text-[#B5F6EB] rounded-xl shadow hover:shadow-xl transition overflow-hidden text-center"
             >
               <img
                 src={member.img}
@@ -71,10 +78,8 @@ const AboutUs = () => {
               />
 
               <div className="p-4">
-                <h3 className="text-lg font-semibold">{member.name}</h3>
-                <p className="text-sm">
-                  {member.role}
-                </p>
+                <h3 className="text-lg font-black">{member.name}</h3>
+                <p className="text-sm font-bold">{member.role}</p>
               </div>
             </div>
           ))}

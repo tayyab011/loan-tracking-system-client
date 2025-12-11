@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedUser, setSelectedUser] = useState(null);
+
+  const [searchText, setSearchText] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
@@ -15,29 +19,76 @@ const ManageUsers = () => {
     },
   });
 
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      const matchesSearch =
+        user.displayName?.toLowerCase().includes(searchText.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchText.toLowerCase());
+
+      const matchesRole =
+        roleFilter === "all" ? true : user.role === roleFilter;
+
+      const matchesStatus =
+        statusFilter === "all" ? true : user.status === statusFilter;
+
+      return matchesSearch && matchesRole && matchesStatus;
+    });
+  }, [users, searchText, roleFilter, statusFilter]);
+
   const handleUpdateRole = async (e) => {
-    e.preventDefault()
- const role =e.target.role.value
- const status = e.target.status.value;
-/*  console.log(role,status) */
- const res= await axiosSecure.put(`/users-manage/${selectedUser._id}`, {
-    role: role,
-    status: status,
-  });
-if (res.data.acknowledged) {
-  Swal.fire("Role and Status updated successfull");
-  
-}
+    e.preventDefault();
+    const role = e.target.role.value;
+    const status = e.target.status.value;
+
+    const res = await axiosSecure.put(`/users-manage/${selectedUser._id}`, {
+      role,
+      status,
+    });
+
+    if (res.data.acknowledged) {
+      Swal.fire("Role and Status updated successfully");
+    }
+
     setSelectedUser(null);
-    refetch(); 
-  /*   console.log(selectedUser.role);  */
+    refetch();
   };
 
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">
-        Manage Users ({users.length})
+        Manage Users ({filteredUsers.length})
       </h2>
+
+      {/* ===== Search & Filters ===== */}
+      <div className="flex flex-col md:flex-row gap-3 mb-4">
+        <input
+          type="text"
+          placeholder="Search by name or email"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="input input-bordered w-full md:w-1/3"
+        />
+        <select
+          value={roleFilter}
+          onChange={(e) => setRoleFilter(e.target.value)}
+          className="select select-bordered w-full md:w-1/6"
+        >
+          <option value="all">All Roles</option>
+          <option value="borrower">Borrower</option>
+          <option value="manager">Manager</option>
+          <option value="admin">Admin</option>
+        </select>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="select select-bordered w-full md:w-1/6"
+        >
+          <option value="all">All Status</option>
+          <option value="approved">Approved</option>
+          <option value="suspended">Suspended</option>
+          <option value="pending">Pending</option>
+        </select>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra ">
@@ -53,8 +104,8 @@ if (res.data.acknowledged) {
           </thead>
 
           <tbody className="font-semibold">
-            {users.length === 0 && <p>No users Found</p>}
-            {users.map((user, i) => (
+            {filteredUsers.length === 0 && <p>No users Found</p>}
+            {filteredUsers.map((user, i) => (
               <tr key={user._id}>
                 <td>{i + 1}</td>
                 <td>{user?.displayName}</td>
@@ -119,16 +170,19 @@ if (res.data.acknowledged) {
             <select
               name="status"
               className="select select-bordered w-full mb-4 bg-[#155C62] text-[#B5F6EB]"
+              defaultValue={selectedUser?.status || "pending"}
             >
-              {" "}
               <option className=" bg-transparent" disabled={true}>
-                select a role
+                select a status
               </option>
               <option className=" bg-transparent" value="approved">
                 Approved
               </option>
               <option className=" bg-transparent" value="suspended">
                 Suspended
+              </option>
+              <option className=" bg-transparent" value="pending">
+                Pending
               </option>
             </select>
 

@@ -9,6 +9,7 @@ const AddLoan = () => {
   const {user}=use(AuthContext)
     const useaxiosSecure=useAxiosSecure()
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -39,7 +40,7 @@ const AddLoan = () => {
        emiPlans: data.emiPlans,
        image: loanImg,
        showOnHome: data.showOnHome,
-       date: data.date,
+       date: new Date(),
        
        createdBy:{
         creatorName:user?.displayName,
@@ -50,16 +51,17 @@ const AddLoan = () => {
     if (res.data.acknowledged) {
       Swal.fire({
                    position: "top-end",
-                   title: "User Created Successfully",
+                   title: "Loan Created Successfully",
                    icon: "success",
                    timer: 1500,
                  });
     }
+    reset()
   };
 
   return (
     <div className="max-w-4xl mx-auto p-6 ">
-      <h2 className="text-2xl md:text-4xl font-bold mb-6">Add Loan</h2>
+      <h2 className="text-2xl md:text-5xl font-bold mb-6">Add Loan</h2>
 
       <form onSubmit={handleSubmit(onSubmits)} className="space-y-6 ">
         {/* Loan Title */}

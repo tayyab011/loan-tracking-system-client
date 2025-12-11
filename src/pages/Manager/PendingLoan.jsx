@@ -42,7 +42,11 @@ updatestatus(id,status)
     }
     return (
       <div>
-        PendingLoan {pending.length}
+        <h1 className="text-2xl md:text-4xl font-bold my-5">
+          {" "}
+          PendingLoan {pending.length}
+        </h1>
+
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
@@ -66,7 +70,17 @@ updatestatus(id,status)
                   <td>Quality Control Specialist</td>
                   <td>{pending?.borrowerEmail}</td>
                   <td>{pending?.loanAmount?.toString()}</td>
-                  <td>{pending?.applicationFeeStatus}</td>
+                  <td
+                    className={`${
+                      pending?.applicationFeeStatus === "unpaid" &&
+                      "text-red-400"
+                    } ${
+                      pending?.applicationFeeStatus === "paid" &&
+                      "text-[#1F887A]"
+                    }`}
+                  >
+                    {pending?.applicationFeeStatus}
+                  </td>
                   <td>{new Date(pending?.appliedAt).toLocaleDateString()}</td>
                   <td className="flex gap-2">
                     <button

@@ -4,11 +4,14 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../provider/AuthContext';
 import useAxios from '../../hooks/useAxios';
 import Swal from 'sweetalert2';
+import Loader from '../../components/Loader';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase/firebase.init';
 
 const Login = () => {
      const navigate = useNavigate();
      const useaxios=useAxios()
-     const { signinUser, googlePopUp } = use(AuthContext);
+     const { signinUser, googlePopUp, loading, logout } = use(AuthContext);
      const {
          register,
          handleSubmit,
@@ -18,9 +21,24 @@ const Login = () => {
          mode: "onTouched",
        });
   const onSubmits = async (data) => {
+    const check = await useaxios.get(`/user-suspend/${data.email}`);
+
+    if (check.data?.status === "suspended") {
+      Swal.fire({
+        icon: "error",
+        title: "Account Suspended",
+        html: `
+            <p><b>Reason:</b> Multiple Fake Loan Applications </p>
+            <p><b>Details:</b> Your account has been suspended because we detected repeated submission of invalid or fraudulent loan applications. Please contact support if this was a mistake.</p>
+          `,
+      });
+
+      return;
+    }
     try {
       const res = await signinUser(data.email, data.password);
 
+       
       Swal.fire({
         position: "top-center",
         title: "Login Successful",
@@ -40,8 +58,25 @@ const Login = () => {
     }
   };
 
-    const googleLogins=()=>{
+   /*  const googleLogins=()=>{
+      
       googlePopUp().then(res=>{
+       
+        useaxios.get(`/user-suspend/${res.user.email}`).then(res=>{
+          if (res.data.status === "suspended") {
+            
+            Swal.fire({
+              icon: "error",
+              title: "Account Suspended",
+              html: `
+            <p><b>Reason:</b> Multiple Fake Loan Applications </p>
+            <p><b>Details:</b> Your account has been suspended because we detected repeated submission of invalid or fraudulent loan applications. Please contact support if this was a mistake.</p>
+          `,
+            });
+ logout();
+            return;
+          }
+        })
         navigate("/")
         Swal.fire({
                       position: "top-end",
@@ -61,6 +96,72 @@ const Login = () => {
           console.log("after submit from login",res)
         }).catch(err=>console.log(err))
       })
+    }  */
+  const googleLogins = () => {
+    googlePopUp()
+      .then(async (res) => {
+        try {
+          // Check if user is suspended
+          const checkSuspend = await useaxios.get(
+            `/user-suspend/${res?.user?.email}`
+          );
+          if (checkSuspend.data?.status === "suspended") {
+            Swal.fire({
+              icon: "error",
+              title: "Account Suspended",
+              html: `
+              <p><b>Reason:</b> Multiple Fake Loan Applications </p>
+              <p><b>Details:</b> Your account has been suspended because we detected repeated submission of invalid or fraudulent loan applications. Please contact support if this was a mistake.</p>
+            `,
+            });
+           signOut(auth)  // log out immediately
+            return; // stop execution
+          }
+
+          // If not suspended, navigate and show success
+          navigate("/");
+          Swal.fire({
+            position: "top-end",
+            title: "Login Successful",
+            icon: "success",
+            timer: 1500,
+          });
+
+          // Add/update user in DB
+          const data = {
+            email: res.user.email,
+            displayName: res.user.displayName,
+            photoURL: res.user.photoURL,
+            role: "borrower",
+          };
+
+          useaxios
+            .post("/users", data)
+            .then((res) => {
+              console.log("after submit from login", res);
+            })
+            .catch((err) => console.log(err));
+        } catch (err) {
+          console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: err.message,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: err.message,
+        });
+      });
+  };
+
+    if (loading) {
+      return <Loader/>
     }
     return (
       <div className="min-h-screen flex justify-center items-center  p-4">
