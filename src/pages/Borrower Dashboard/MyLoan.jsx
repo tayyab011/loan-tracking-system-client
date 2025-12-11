@@ -67,7 +67,7 @@ const paymentInfo = {
 
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
-          <thead>
+          <thead className="font-bold">
             <tr>
               <th>#</th>
               <th>Loan Info</th>
@@ -77,14 +77,14 @@ const paymentInfo = {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="font-bold">
             {myLoans.map((loan, index) => (
               <tr key={loan._id}>
                 <td>{index + 1}</td>
 
                 <td>
                   <p className="font-semibold">{loan.loanTitle}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm  font-light">
                     Interest: {loan.interestRate}%
                   </p>
                   <p className="text-xs text-gray-400">
@@ -110,25 +110,25 @@ const paymentInfo = {
                   </span>
                 </td>
 
-                <td className="space-x-2">
+                <td className="space-x-2  space-y-2 md:space-y-0">
                   {/* View */}
                   <Link
                     to={`/loan/${loan.loanId}`}
-                    className="btn btn-xs btn-info"
+                    className="btn btn-sm md:btn-md border-none bg-[#1F887A] hover:bg-[#159281] font-semibold text-white hover:scale-105 transition duration-300"
                   >
                     View
                   </Link>
 
-                  {/* ✅ PAID */}
+                  {/*  PAID */}
                   {loan.applicationFeeStatus === "paid" && (
-                    <span className="badge badge-success">Paid</span>
+                    <span className="badge text-white bg-[#1F887A] border-0 py-3 px-3">Paid</span>
                   )}
 
-                  {/* ❌ CANCELLED + NEW PAYMENT */}
+                  {/*  CANCELLED + NEW PAYMENT */}
                   {loan.status === "canceled" &&
                     loan.applicationFeeStatus !== "paid" && (
                       <>
-                      {/*   <span className="badge badge-error">Cancelled</span> */}
+                        {/*   <span className="badge badge-error">Cancelled</span> */}
 
                         {/* <button
                           onClick={() => handlePayment(loan)}
@@ -144,18 +144,18 @@ const paymentInfo = {
                     loan.applicationFeeStatus === "unpaid" && (
                       <button
                         onClick={() => handlePayment(loan)}
-                        className="btn btn-xs btn-primary"
+                        className="btn btn-sm md:btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
                       >
                         Pay
                       </button>
                     )}
 
-                  {/* ❌ CANCEL (only when unpaid) */}
+                  {/*  CANCEL (only when unpaid) */}
                   {loan.status === "pending" &&
                     loan.applicationFeeStatus !== "paid" && (
                       <button
                         onClick={() => handleCancel(loan._id)}
-                        className="btn btn-xs btn-error"
+                        className="btn btn-sm md:btn-md btn-error border-none  font-semibold text-white hover:scale-105 transition duration-300"
                       >
                         Cancel
                       </button>

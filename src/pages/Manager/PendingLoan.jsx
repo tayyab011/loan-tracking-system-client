@@ -46,7 +46,7 @@ updatestatus(id,status)
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
-            <thead>
+            <thead className="font-bold">
               <tr>
                 <th>#</th>
                 <th>Loan ID</th>
@@ -58,7 +58,7 @@ updatestatus(id,status)
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="font-bold">
               {pending?.map((pending, i) => (
                 <tr key={pending._id}>
                   <th>{i + 1}</th>
@@ -71,21 +71,21 @@ updatestatus(id,status)
                   <td className="flex gap-2">
                     <button
                       onClick={() => handleApprove(pending._id, "approved")}
-                      className="btn btn-xs btn-success"
+                      className="btn btn-sm md:btn-md border-none bg-[#1F887A] hover:bg-[#159281] font-semibold text-white hover:scale-105 transition duration-300"
                     >
                       Approve
                     </button>
 
                     <button
                       onClick={() => handleReject(pending._id, "rejected")}
-                      className="btn btn-xs btn-error"
+                      className="btn btn-sm md:btn-md btn-error border-none  font-semibold text-white hover:scale-105 transition duration-300"
                     >
                       Reject
                     </button>
 
                     <button
                       onClick={() => navigate(`/loan/${pending?.loanId}`)}
-                      className="btn btn-xs btn-info"
+                      className="btn btn-sm md:btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] shadow-none font-semibold text-white hover:scale-105 transition duration-300 md:mb-0 mb-2"
                     >
                       View
                     </button>

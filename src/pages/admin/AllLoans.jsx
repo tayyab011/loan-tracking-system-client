@@ -95,13 +95,13 @@ const onLoanSubmit = async (data) => {
   };
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">
+      <h2 className="text-2xl font-bold mb-4">
         All Loans ({loans.length})
       </h2>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">
-          <thead>
+          <thead className=" font-black">
             <tr>
               <th>#</th>
               <th>Image</th>
@@ -114,7 +114,7 @@ const onLoanSubmit = async (data) => {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="font-semibold">
             {loans.map((loan, index) => (
               <tr key={loan._id}>
                 <td>{index + 1}</td>
@@ -144,14 +144,14 @@ const onLoanSubmit = async (data) => {
                 <td className="space-x-2">
                   <button
                     onClick={() => updateLoan(loan)}
-                    className="btn btn-xs btn-info"
+                    className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] shadow-none font-semibold text-white hover:scale-105 transition duration-300 md:mb-0 mb-2"
                   >
                     Update
                   </button>
 
                   <button
                     onClick={() => handleDelete(loan._id)}
-                    className="btn btn-xs btn-error"
+                    className="btn btn-md btn-error border-none  font-semibold text-white hover:scale-105 transition duration-300"
                   >
                     Delete
                   </button>
@@ -162,19 +162,21 @@ const onLoanSubmit = async (data) => {
         </table>
 
         {modal && (
-          <dialog id="my_modal_3" className="modal modal-open">
-            <div className="modal-box">
+          <dialog id="my_modal_3" className="modal modal-open ">
+            <div className="modal-box bg-[#155C62] ">
               <form onSubmit={handleSubmit(onLoanSubmit)} className="space-y-4">
                 {/* Loan Title */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Loan Title *</span>
+                    <span className="label-text text-[#B5F6EB]">
+                      Loan Title *
+                    </span>
                   </label>
                   <input
                     {...register("title", { required: true })}
                     type="text"
                     defaultValue={modal.title}
-                    className="input input-bordered w-full"
+                    className="input input-bordered w-full "
                   />
                   {errors.title && (
                     <p className="text-red-500 text-sm">Title is required</p>
@@ -184,7 +186,9 @@ const onLoanSubmit = async (data) => {
                 {/* Description */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Description *</span>
+                    <span className="label-text text-[#B5F6EB]">
+                      Description *
+                    </span>
                   </label>
                   <textarea
                     {...register("description", { required: true })}
@@ -203,7 +207,7 @@ const onLoanSubmit = async (data) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div>
                     {" "}
-                    <label className="label">
+                    <label className="label text-[#B5F6EB]">
                       <span className="label-text">Category *</span>
                     </label>
                     <input
@@ -214,7 +218,7 @@ const onLoanSubmit = async (data) => {
                     />
                   </div>
                   <div>
-                    <label className="label">
+                    <label className="label text-[#B5F6EB]">
                       <span className="label-text">Interest Rate *</span>
                     </label>
                     <input
@@ -226,7 +230,7 @@ const onLoanSubmit = async (data) => {
                   </div>
 
                   <div>
-                    <label className="label">
+                    <label className="label text-[#B5F6EB]">
                       <span className="label-text">Max Loan Limit*</span>
                     </label>
                     <input
@@ -240,7 +244,7 @@ const onLoanSubmit = async (data) => {
 
                 {/* Required Documents */}
                 <div>
-                  <label className="label">
+                  <label className="label text-[#B5F6EB]">
                     <span className="label-text">Required Documents</span>
                   </label>
                   <input
@@ -258,7 +262,7 @@ const onLoanSubmit = async (data) => {
 
                 {/* EMI Plans */}
                 <div>
-                  <label className="label">
+                  <label className="label text-[#B5F6EB]">
                     <span className="label-text">EMI Plans</span>
                   </label>
                   <input
@@ -270,7 +274,7 @@ const onLoanSubmit = async (data) => {
 
                 {/* Image */}
                 <div>
-                  <label className="label">
+                  <label className="label text-[#B5F6EB]">
                     <span className="label-text">Image</span>
                   </label>
                   <input
@@ -292,7 +296,7 @@ const onLoanSubmit = async (data) => {
                     type="checkbox"
                     {...register("showOnHome")}
                     defaultChecked={modal.showOnHome}
-                    className="toggle toggle-primary"
+                    className="toggle toggle-success"
                   />
                   <span>Show on Home</span>
                 </div>
@@ -306,15 +310,14 @@ const onLoanSubmit = async (data) => {
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-primary">
-                    {isSubmitting?"Updating.....":"Update"}
+                  <button
+                    type="submit"
+                    className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
+                  >
+                    {isSubmitting ? "Updating....." : "Update"}
                   </button>
                 </div>
               </form>
-
-              <p className="py-4">
-                Press ESC key or click on ✕ button to close
-              </p>
             </div>
           </dialog>
         )}

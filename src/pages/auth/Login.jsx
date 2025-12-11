@@ -17,29 +17,29 @@ const Login = () => {
        } = useForm({
          mode: "onTouched",
        });
-    const onSubmits = async (data) => {
-     
-      signinUser(data.email, data.password)
-        .then((res) => {
-             navigate("/");
-             Swal.fire({
-               position: "top-center",
-               title: "Login Successfull",
-               icon: "success",
-               timer: 1500,
-             });
-          console.log(res.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      /*  reset();  Swal.fire({
-  position: "top-end",
-  title: "Your Application Has Been Submitted",
-  icon: "success",
-  timer: 1500,
-});*/
-    };
+  const onSubmits = async (data) => {
+    try {
+      const res = await signinUser(data.email, data.password);
+
+      Swal.fire({
+        position: "top-center",
+        title: "Login Successful",
+        icon: "success",
+        timer: 1500,
+      });
+
+      navigate("/");
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: err.message,
+      });
+    }
+  };
+
     const googleLogins=()=>{
       googlePopUp().then(res=>{
         navigate("/")
@@ -66,9 +66,11 @@ const Login = () => {
       <div className="min-h-screen flex justify-center items-center  p-4">
         <div
           className="login-box w-full max-w-md p-8 rounded-xl shadow-lg my-12
-                   bg-[linear-gradient(to_right,#57C4D4,#33b3ac,#29A6A6)]"
+                   bg-[#155C62] "
         >
-          <p className="text-2xl font-semibold text-center mb-6 ">Login</p>
+          <p className="md:text-4xl text-2xl  text-[#B5F6EB] font-semibold text-center mb-6">
+            Login
+          </p>
 
           <form
             onSubmit={handleSubmit(onSubmits)}
@@ -76,7 +78,7 @@ const Login = () => {
           >
             {/* Email */}
             <div className="flex flex-col">
-              <label className="text-gray-700 font-medium mb-1">Email</label>
+              <label className="text-[#B5F6EB] font-bold mb-1">Email</label>
               <input
                 {...register("email", {
                   required: "Email is required",
@@ -99,7 +101,7 @@ const Login = () => {
 
             {/* Password */}
             <div className="flex flex-col">
-              <label className="text-gray-700 font-medium mb-1">Password</label>
+              <label className="text-[#B5F6EB] font-bold mb-1">Password</label>
               <input
                 {...register("password", {
                   required: "Password is required",
@@ -123,11 +125,11 @@ const Login = () => {
             <div className="space-y-3">
               <button
                 type="submit"
-                className="btn w-full bg-[#57C4D4] hover:bg-[#29A6A6] text-white"
+                className="btn w-full bg-[#86A9AB] hover:bg-[#29A6A6] text-white hover:font-bold hover:text-base"
               >
-                Login
+                {isSubmitting ? "Loading..." : "Login"}
               </button>
-              <div className="divider">OR</div>
+              <div className="divider text-[#B5F6EB]">OR</div>
               <button
                 onClick={googleLogins}
                 type="button"
@@ -162,9 +164,13 @@ const Login = () => {
                 </svg>
                 Login with Google
               </button>
-              <p>
+              <p className="text-[#B5F6EB]">
                 {" "}
-                Dont Have an account?<Link to="/register"> Register now</Link>
+                Dont Have an account?
+                <Link className="font-bold hover:underline" to="/register">
+                  {" "}
+                  Register now
+                </Link>
               </p>
             </div>
           </form>

@@ -58,18 +58,18 @@ const AddLoan = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Add Loan</h2>
+    <div className="max-w-4xl mx-auto p-6 ">
+      <h2 className="text-2xl md:text-4xl font-bold mb-6">Add Loan</h2>
 
-      <form onSubmit={handleSubmit(onSubmits)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmits)} className="space-y-6 ">
         {/* Loan Title */}
         <div>
-          <label className="label">
-            <span className="label-text font-medium">Loan Title *</span>
+          <label className="label ">
+            <span className="label-text font-semibold">Loan Title *</span>
           </label>
           <input
             {...register("title", { required: "Title is required" })}
-            className="input input-bordered w-full"
+            className="input border-[#1F887A] w-full"
             placeholder="Micro Business Loan"
           />
           {errors.title && (
@@ -80,13 +80,13 @@ const AddLoan = () => {
         {/* Description */}
         <div>
           <label className="label">
-            <span className="label-text font-medium">Description *</span>
+            <span className="label-text font-semibold">Description *</span>
           </label>
           <textarea
             {...register("description", {
               required: "Description is required",
             })}
-            className="textarea textarea-bordered w-full"
+            className="textarea border-[#1F887A] w-full "
             rows="4"
             placeholder="Loan description"
           />
@@ -99,11 +99,11 @@ const AddLoan = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="label">
-              <span className="label-text">Category *</span>
+              <span className="label-text font-semibold">Category *</span>
             </label>
             <input
               {...register("category", { required: "Category required" })}
-              className="input input-bordered w-full"
+              className="input border-[#1F887A] w-full "
               placeholder="Business / Personal"
             />
             {errors.category && (
@@ -113,13 +113,15 @@ const AddLoan = () => {
 
           <div>
             <label className="label">
-              <span className="label-text">Interest Rate (%) *</span>
+              <span className="label-text font-semibold">
+                Interest Rate (%) *
+              </span>
             </label>
             <input
               {...register("interestRate", {
                 required: "Interest rate required",
               })}
-              className="input input-bordered w-full"
+              className="input border-[#1F887A] w-full"
               placeholder="12"
             />
             {errors.interestRate && (
@@ -131,13 +133,13 @@ const AddLoan = () => {
 
           <div>
             <label className="label">
-              <span className="label-text">Max Loan Limit *</span>
+              <span className="label-text font-semibold">Max Loan Limit *</span>
             </label>
             <input
               {...register("maxLoanLimit", {
                 required: "Max limit required",
               })}
-              className="input input-bordered w-full"
+              className="input border-[#1F887A] w-full"
               placeholder="50000"
             />
             {errors.maxLoanLimit && (
@@ -151,13 +153,13 @@ const AddLoan = () => {
         {/* Required Documents */}
         <div>
           <label className="label">
-            <span className="label-text">Required Documents</span>
+            <span className="label-text font-semibold">Required Documents</span>
           </label>
           <input
             {...register("requiredDocuments", {
               required: "Required document is mandatory",
             })}
-            className="input input-bordered w-full"
+            className="input border-[#1F887A] w-full"
             placeholder="NID , TreadLicens , National id , ...(use comma)"
           />
           {errors.requiredDocuments && (
@@ -173,13 +175,15 @@ const AddLoan = () => {
           <div>
             {" "}
             <label className="label">
-              <span className="label-text">Emi Plans for loans</span>
+              <span className="label-text font-semibold">
+                Emi Plans for loans
+              </span>
             </label>
             <input
               {...register(`emiPlans`, {
                 required: "emi required",
               })}
-              className="input input-bordered col-span-7"
+              className="input  border-[#1F887A] col-span-7"
               placeholder="9 month / 10 month etc.."
             />
             {errors.emiPlans && (
@@ -196,7 +200,7 @@ const AddLoan = () => {
               {...register(`image`, {
                 required: "Image required",
               })}
-              className="input input-bordered col-span-7 cursor-pointer"
+              className="input border-[#1F887A] col-span-7 cursor-pointer"
               placeholder="image"
             />
             {errors.emiPlans && (
@@ -217,7 +221,7 @@ const AddLoan = () => {
         {/* Date */}
         <div>
           <label className="label">
-            <span className="label-text">Date</span>
+            <span className="label-text font-semibold">Date</span>
           </label>
           <input
             type="text"
@@ -230,7 +234,10 @@ const AddLoan = () => {
 
         {/* Submit */}
         <div className="text-right">
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
+          >
             {isSubmitting ? "Adding..." : "Add Loan"}
           </button>
         </div>

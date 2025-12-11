@@ -17,65 +17,70 @@ const useaxios=useAxios()
    } = useForm({
      mode: "onTouched",
    });
- const onSubmits = async (data) => {
-  const photo=data.photo[0]
-registerUger(data.email, data.password)
-  .then((res) => {
-    console.log(res.user);
+const onSubmits = async (data) => {
+  try {
+    const photo = data.photo[0];
 
-    /* 1 store image  IN FORM DATA*/
+    // 1️⃣ Register user
+    const res = await registerUger(data.email, data.password);
 
+    // 2️⃣ Upload image
     const formData = new FormData();
     formData.append("image", photo);
 
-    /* 2 send the photo and get uri*/
-    axios
-      .post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`,
-        formData
-      )
-      .then((res) => {
-        const photoURL = res.data.data.url;
-        //CREATE USER IN DATABASE
-        const userInfo = {
-          email: data.email,
-          displayName: data.name,
-          photoURL: photoURL,
-          role:data.role
-        };
-         useaxios.post("/users", userInfo).then((res) => {
-          if (res.data.insertedId) {
-            navigate("/")
-            Swal.fire({
-              position: "top-end",
-              title: "User Created Successfully",
-              icon: "success",
-              timer: 1500,
-            });
-          }
-        }); 
-        const userprofile = {
-          displayName: data.name,
-          photoURL: photoURL,
-        };
-        /* 3 firebase e uri ta diye photoURL upload kroa*/
-        updateUser(userprofile)
-          .then((res) => console.log("after img upld", res))
-          .catch((err) => console.log(err));
+    const imgRes = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`,
+      formData
+    );
+
+    const photoURL = imgRes.data.data.url;
+
+    // 3️⃣ Save user in database
+    const userInfo = {
+      email: data.email,
+      displayName: data.name,
+      photoURL,
+      role: data.role,
+    };
+
+    const dbRes = await useaxios.post("/users", userInfo);
+
+    // 4️⃣ Update firebase profile
+    await updateUser({
+      displayName: data.name,
+      photoURL,
+    });
+
+    if (dbRes.data.insertedId) {
+      Swal.fire({
+        position: "top-end",
+        title: "User Created Successfully",
+        icon: "success",
+        timer: 1500,
       });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-    reset(); 
- };
+
+      reset();
+      navigate("/");
+    }
+  } catch (err) {
+    console.error(err);
+    Swal.fire({
+      icon: "error",
+      title: "Registration Failed",
+      text: err.message,
+    });
+  }
+};
+
   return (
     <div className="min-h-screen flex justify-center items-center  p-4">
       <div
         className="login-box w-full max-w-md p-8 rounded-xl shadow-lg my-12
-                   bg-[linear-gradient(to_right,#57C4D4,#33b3ac,#29A6A6)]"
+                   bg-[#155C62]"
       >
-        <p className="text-2xl font-semibold text-center mb-6 ">Register</p>
+        <p className="md:text-4xl text-2xl  text-[#B5F6EB] font-semibold text-center mb-6 ">
+          Register
+        </p>
 
         <form
           onSubmit={handleSubmit(onSubmits)}
@@ -83,7 +88,7 @@ registerUger(data.email, data.password)
         >
           {/* Name */}
           <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Name</label>
+            <label className="text-[#B5F6EB] font-bold mb-1">Name</label>
             <input
               {...register("name", { required: true })}
               type="text"
@@ -97,7 +102,7 @@ registerUger(data.email, data.password)
 
           {/* Email */}
           <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Email</label>
+            <label className="text-[#B5F6EB] font-bold  mb-1">Email</label>
             <input
               {...register("email", {
                 required: "Email is required",
@@ -120,7 +125,7 @@ registerUger(data.email, data.password)
 
           {/* Photo Upload */}
           <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Photo</label>
+            <label className="text-[#B5F6EB] font-bold mb-1">Photo</label>
             <input
               {...register("photo", { required: true })}
               type="file"
@@ -132,17 +137,21 @@ registerUger(data.email, data.password)
             )}
           </div>
           <div className="flex flex-col mb-4">
-            <label className="text-gray-700 font-medium mb-2">Role</label>
+            <label className="text-[#B5F6EB] font-bold mb-2">Role</label>
             <select
               {...register("role", { required: "Role is required" })}
               defaultValue=""
-              className="select select-ghost w-full bg-[#57C4D4]"
+              className="select select-ghost w-full bg-[#155C62] text-[#B5F6EB]"
             >
-              <option value="" disabled>
+              <option className="bg-transparent" value="" disabled>
                 Pick a role
               </option>
-              <option value="borrower">Borrower</option>
-              <option value="manager">Manager</option>
+              <option className="bg-transparent" value="borrower">
+                Borrower
+              </option>
+              <option className="bg-transparent" value="manager">
+                Manager
+              </option>
             </select>
             {errors.role && (
               <p className="text-red-500 text-xs mt-1">{errors.role.message}</p>
@@ -150,19 +159,22 @@ registerUger(data.email, data.password)
           </div>
           {/* Password */}
           <div className="flex flex-col">
-            <label className="text-gray-700 font-medium mb-1">Password</label>
+            <label className="text-[#B5F6EB] font-bold mb-1">Password</label>
+
             <input
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
               type="password"
               placeholder="Enter your password"
+              {...register("password", {
+                required: "Password is required",
+                pattern: {
+                  value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                  message:
+                    "Password must contain at least 1 uppercase, 1 lowercase letter and be at least 6 characters long",
+                },
+              })}
               className="input input-bordered w-full focus:border-[#57C4D4]"
             />
+
             {errors.password && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.password.message}
@@ -173,17 +185,21 @@ registerUger(data.email, data.password)
           {/* Buttons */}
           <div className="space-y-3">
             <button
-             
               type="submit"
-              className="btn w-full bg-[#57C4D4] hover:bg-[#29A6A6] text-white"
+              disabled={isSubmitting}
+              className="btn w-full bg-[#86A9AB] hover:bg-[#29A6A6] text-white hover:font-bold hover:text-base"
             >
-            Register
+              {isSubmitting ? "Loading..." : "Register"}
             </button>
-            <div className="divider">OR</div>
-           
-            <p>
+            <div className="divider text-[#B5F6EB]">OR</div>
+
+            <p className="text-[#B5F6EB]">
               {" "}
-              Have an account?<Link to="/login"> Login now</Link>
+              Have an account?
+              <Link className="hover:underline font-black" to="/login">
+                {" "}
+                Login now
+              </Link>
             </p>
           </div>
         </form>

@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../provider/AuthContext';
 import useRole from '../hooks/useRole';
-
+import "./nav.css"
 const Navbar = () => {
   const { role } = useRole();
   console.log(role)
@@ -18,17 +18,17 @@ const Navbar = () => {
      }, [theme]);
     const link = (
       <>
-        <li className="">
+        <li>
           <NavLink to="/">Home</NavLink>
         </li>
-        <li className="">
+        <li >
           <NavLink to="/all-loan">All-Loans</NavLink>
         </li>
-        <li className="">
+        <li >
           <NavLink to="/aboutus">About Us</NavLink>
         </li>
-        <li className="">
-          <NavLink to="/">Contact</NavLink>
+        <li >
+          <NavLink to="/contact">Contact</NavLink>
         </li>
 
         {user && (
@@ -71,7 +71,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-52 px-5 py-3 shadow"
+                className="menu menu-sm dropdown-content bg-[#155C62] text-[#B5F6EB] rounded-box z-10 mt-3 w-52 px-5 py-3 shadow"
               >
                 {link}
               </ul>
@@ -82,15 +82,7 @@ const Navbar = () => {
             <ul className="menu menu-horizontal px-1">{link}</ul>
           </div>
           <div className="navbar-end gap-4">
-            {/*   <label class="ui-switch">
-              <input
-                onChange={(e) => handleTheme(e.target.checked)}
-                type="checkbox"
-              />
-              <div class="slider">
-                <div class="circle"></div>
-              </div>
-            </label> */}
+           
             <label className="ui-switch">
               <input
                 type="checkbox"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
@@ -14,16 +14,16 @@ const DashBoardLayout = () => {
   return (
     <div>
       <Navbar />
-      <div className="drawer lg:drawer-open">
+      <div className="drawer lg:drawer-open ">
         {/* toggle for mobile */}
         <input
           id="dashboard-drawer"
           type="checkbox"
-          className="drawer-toggle"
+          className="drawer-toggle "
         />
 
         {/* Page content */}
-        <div className="drawer-content flex flex-col">
+        <div className="drawer-content flex flex-col ">
           {/* Mobile Navbar */}
           <div className="navbar bg-base-200 lg:hidden">
             <div className="flex-none">
@@ -44,59 +44,99 @@ const DashBoardLayout = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="drawer-side">
+        <div className="drawer-side ">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-72 min-h-full bg-base-200">
+          <ul className="menu p-4 w-72 min-h-full bg-[#155C62]">
             <li>
               <Link to="/">🏠 Home</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/dashboard"> Dashboard</Link>
-            </li>
+            </li> */}
             {role === "manager" && (
               <>
-                <li>
-                  <Link to="/dashboard/add-loan">➕ Add Loan</Link>
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base " : null
+                    }
+                    to="/dashboard/add-loan"
+                  >
+                    ➕ Add Loan
+                  </NavLink>
                 </li>
-                <li>
-                  <Link to="/dashboard/manage-loans">📋 Manage Loans</Link>
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base " : null
+                    }
+                    to="/dashboard/manage-loans"
+                  >
+                    📋 Manage Loans
+                  </NavLink>
                 </li>
-                <li>
-                  <Link to="/dashboard/pending-loans">
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base " : null
+                    }
+                    to="/dashboard/pending-loans"
+                  >
                     📋 Pending Applications
-                  </Link>
+                  </NavLink>
                 </li>
-                <li>
-                  <Link to="/dashboard/approved-loans">
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? " font-black text-base " : null
+                    }
+                    to="/dashboard/approved-loans"
+                  >
                     📋 Approved Applications
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}
             {role === "borrower" && (
               <>
-                <li>
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
                   <Link to="/dashboard/myloan">➕ My Loans</Link>
                 </li>
               </>
             )}
             {role === "admin" && (
               <>
-                <li>
-                  <Link to="/dashboard/manage-users">➕ Manage User</Link>
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                className={({ isActive }) =>
+                  isActive ? " font-black text-base" : null
+                } to="/dashboard/manage-users">➕ Manage User</NavLink>
                 </li>
-                <li>
-                  <Link to="/dashboard/allloans">➕ All Loans</Link>
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                className={({ isActive }) =>
+                  isActive ? " font-black text-base" : null
+                } to="/dashboard/allloans">➕ All Loans</NavLink>
                 </li>
-                <li>
-                  <Link to="/dashboard/loan-applications">
+                <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+                  <NavLink
+                className={({ isActive }) =>
+                  isActive ? " font-black text-base" : null
+                } to="/dashboard/loan-applications">
                     ➕ Loan Application
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}
-            <li>
-              <Link to="/dashboard/myProfile">➕ My Profile</Link>
+            <li className="hover:bg-[#1F887A] w-full text-[#B5F6EB] rounded-full border-0 ">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? " font-black text-base" : null
+                }
+                to="/dashboard/myProfile"
+              >
+                ➕ My Profile
+              </NavLink>
             </li>
           </ul>
         </div>

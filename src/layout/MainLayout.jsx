@@ -5,11 +5,14 @@ import Footer from '../components/Footer';
 
 const MainLayout = () => {
     return (
-        <div>
-            <Navbar/>
-            <Outlet/>
-            <Footer/>
+      <div>
+        <div className=" z-50  sticky top-0">
+          <Navbar />
         </div>
+
+        <Outlet />
+        <Footer />
+      </div>
     );
 };
 

@@ -1,30 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
-const AllLoan = () => {
+const AvailableLoans = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: loans = [], isLoading } = useQuery({
-    queryKey: ["all-loans"],
+  const { data: loans = [] } = useQuery({
+    queryKey: ["available-loans"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/all-loans");
+      const res = await axiosSecure.get("/homes");
       return res.data;
     },
   });
 
-  if (isLoading) {
-    return <div className="text-center py-10">Loading loans...</div>;
-  }
-
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-2xl md:text-4xl font-bold mb-6 text-center">
-        All Loans
-      </h2>
+    <div className="py-12 w-11/12 mx-auto">
+      <h2 className=" text-2xl md:text-4xl font-bold text-center mb-10">Available Loans</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {loans.map((loan) => (
           <div
             key={loan._id}
@@ -64,4 +58,4 @@ const AllLoan = () => {
   );
 };
 
-export default AllLoan;
+export default AvailableLoans;

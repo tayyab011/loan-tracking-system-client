@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "aboutus",
-        element: <AboutUs/>,
+        element: <AboutUs />,
       },
       {
         path: "apply-loan/:id",
@@ -68,11 +68,20 @@ export const router = createBrowserRouter([
     path: "dashboard",
     element: <DashBoardLayout />,
     children: [
-      {
+      /*  {
         index: true,
         element: (
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        ),
+      }, */
+      {
+        /*  path: "myProfile" */
+        index: true,
+        element: (
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         ),
       },
@@ -88,7 +97,7 @@ export const router = createBrowserRouter([
         path: "payment-success",
         element: (
           <PrivateRoute>
-            <PaymentSuccessFull/>
+            <PaymentSuccessFull />
           </PrivateRoute>
         ),
       },
@@ -96,7 +105,7 @@ export const router = createBrowserRouter([
         path: "payment-cancle",
         element: (
           <PrivateRoute>
-            <PaymentCancel/>
+            <PaymentCancel />
           </PrivateRoute>
         ),
       },
@@ -175,7 +184,7 @@ export const router = createBrowserRouter([
         path: "myProfile",
         element: (
           <PrivateRoute>
-            <Profile/>
+            <Profile />
           </PrivateRoute>
         ),
       },

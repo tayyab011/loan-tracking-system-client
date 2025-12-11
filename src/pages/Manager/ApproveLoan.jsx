@@ -23,7 +23,7 @@ const ApproveLoan = () => {
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className='font-bold'>
             <tr>
               <th>#</th>
               <th>Loan ID</th>
@@ -33,7 +33,7 @@ const ApproveLoan = () => {
               <th>Date</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='font-bold'>
             {approved?.map((approved, i) => (
               <tr key={approved._id}>
                 <th>{i + 1}</th>

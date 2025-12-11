@@ -40,8 +40,8 @@ if (res.data.acknowledged) {
       </h2>
 
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead>
+        <table className="table table-zebra ">
+          <thead className=" font-bold">
             <tr>
               <th>#</th>
               <th>Name</th>
@@ -52,7 +52,8 @@ if (res.data.acknowledged) {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="font-semibold">
+            {users.length === 0 && <p>No users Found</p>}
             {users.map((user, i) => (
               <tr key={user._id}>
                 <td>{i + 1}</td>
@@ -75,7 +76,7 @@ if (res.data.acknowledged) {
                 <td>
                   <button
                     onClick={() => setSelectedUser(user)}
-                    className="btn btn-xs btn-primary"
+                    className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
                   >
                     Update
                   </button>
@@ -91,7 +92,7 @@ if (res.data.acknowledged) {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <form
             onSubmit={handleUpdateRole}
-            className="bg-white p-6 rounded-md w-80"
+            className="bg-[#155C62] p-6 rounded-md w-80 text-[#B5F6EB]"
           >
             <h3 className="font-semibold mb-3">Update User</h3>
 
@@ -100,34 +101,48 @@ if (res.data.acknowledged) {
             <select
               name="role"
               defaultValue={selectedUser?.role}
-              className="select select-bordered w-full mb-3"
+              className="select select-bordered w-full mb-3 bg-[#155C62] text-[#B5F6EB]"
             >
-              <option value="borrower">Borrower</option>
-              <option value="manager">Manager</option>
-              <option value="admin">Admin</option>
+              <option className=" bg-transparent" value="borrower">
+                Borrower
+              </option>
+              <option className=" bg-transparent" value="manager">
+                Manager
+              </option>
+              <option className=" bg-transparent" value="admin">
+                Admin
+              </option>
             </select>
 
             {/* Status */}
             <label className="block mb-2 text-sm">Status</label>
             <select
-            
               name="status"
-              className="select select-bordered w-full mb-4"
+              className="select select-bordered w-full mb-4 bg-[#155C62] text-[#B5F6EB]"
             >
               {" "}
-              <option disabled={true}>select a role</option>
-              <option value="approved">Approved</option>
-              <option value="suspended">Suspended</option>
+              <option className=" bg-transparent" disabled={true}>
+                select a role
+              </option>
+              <option className=" bg-transparent" value="approved">
+                Approved
+              </option>
+              <option className=" bg-transparent" value="suspended">
+                Suspended
+              </option>
             </select>
 
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setSelectedUser(null)}
-                className="btn btn-sm"
+                className="btn btn-error btn-md border-none font-semibold text-white hover:scale-105 transition duration-300"
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-sm btn-primary">
+              <button
+                type="submit"
+                className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
+              >
                 Save
               </button>
             </div>

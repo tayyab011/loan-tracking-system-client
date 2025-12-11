@@ -43,7 +43,7 @@ const LoanDetails = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="card bg-base-100 shadow-xl border">
+      <div className="card bg-[#155C62] text-[#B5F6EB] shadow-xl border">
         {/* Image */}
         <figure className="h-72">
           <img
@@ -58,7 +58,7 @@ const LoanDetails = () => {
           <h2 className="text-2xl font-bold">{loan.title}</h2>
 
           {/* Description */}
-          <p className="text-gray-600">{loan.description}</p>
+          <p className="">{loan.description}</p>
 
           {/* Info Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
@@ -78,18 +78,35 @@ const LoanDetails = () => {
 
           {/* Apply Button */}
           <div className="pt-4">
-            <button
+            {isApplyDisabled ? (
+              <button
+                disabled={isApplyDisabled}
+                className={`btn btn-primary w-full ${
+                  isApplyDisabled ? "btn-disabled" : ""
+                }`}
+              >
+                Disabled
+              </button>
+            ) : (
+              <button
+                onClick={handleApply}
+                disabled={isApplyDisabled}
+                className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] shadow-none font-semibold text-white hover:scale-105 transition duration-300 md:mb-0 mb-2"
+              >
+                Apply Now
+              </button>
+            )}
+            {/* <button
               onClick={handleApply}
               disabled={isApplyDisabled}
               className={`btn btn-primary w-full ${
                 isApplyDisabled ? "btn-disabled" : ""
               }`}
             >
-              Apply Now
-            </button>
+              {isApplyDisabled ? "Disabled" : " Apply Now"}
+            </button> */}
 
-            
-           {/*  {!user && (
+            {/*  {!user && (
               <p className="text-xs text-red-500 mt-2">
                 Please login to apply for this loan
               </p>

@@ -1,57 +1,43 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const HeroBanner = () => {
+  const navigate=useNavigate()
   return (
-    <div className="w-full bg-[#6847B4] relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+    <div className="hero ">
+      <div className="hero-content flex-col lg:flex-row">
         <div
-          className="w-full h-full bg-no-repeat bg-cover bg-center"
+          className="w-full h-[550px] rounded-lg shadow-2xl bg-cover bg-no-repeat"
           style={{
-            backgroundImage:
-              "url('https://www.getzype.com/wp-content/uploads/2024/08/model-house-pile-coins-businessman-holding-coins-real-estate-investment-ideas-home-loans-new-home-loans-lowinterest-rates-homes-1-1.png.webp')",
-             
+            backgroundImage: "url('/loan1.jpg')",
+            backgroundPosition: "center 30%", // <-- niche ashbe
           }}
         ></div>
-      </div>
-
-      {/* Content Wrapper */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-          Make Employee Loan Management Easy for <br /> You and Your Team
-        </h1>
-
-        <p className="text-white/90 max-w-2xl mx-auto mt-6 text-lg">
-          Try the KAISPE Employee Loan Management App – it makes loan requests
-          easy with automation, cuts down on paperwork, keeps things clear, and
-          helps keep your employees happy.
-        </p>
-
-        {/* Buttons */}
-        <div className="flex items-center justify-center gap-4 mt-8">
-          <button className="btn btn-primary rounded-full px-8 text-white">
-            <Link to="/all-loan"> Book a Demo</Link>
-          </button>
-
-          {/*  <button className="flex items-center gap-2 text-white hover:text-gray-200">
-            <span className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20">
-              ▶
+        <div className="flex-1 text-[#1F887A]">
+          {/*  <h1 className="text-5xl font-bold">
+            Fast, Secure & Hassle-Free Loan Solutions
+          </h1> */}
+          <span className="text-rotate md:text-7xl text-2xl  text-[#1F887A] font-black my-5">
+            <span className="justify-items-center">
+              <span>Fast Secure </span>
+              <span> Hassle-Free </span>
+              <span>Loan Solutions</span>
             </span>
-            Watch Intro Video
-          </button> */}
-        </div>
+          </span>
+          <p className="py-6 font-semibold">
+            Get quick access to personal and business loans with transparent
+            interest rates, simple documentation, and a seamless online process.
+            Manage your finances confidently with our trusted digital loan
+            platform built for speed, clarity, and reliability.
+          </p>
 
-        {/* Phone / Mockup Images */}
-        <div className="flex justify-center mt-16 gap-8">
-          <img
-            src="https://www.pnc.com/content/dam/pnc-thought-leadership/small-business/managing-business-finances/pnc_insights_sb_business-loan-vs-line-of-credit-difference.jpg"
-            className="w-40 md:w-60 h-[380px] object-cover rounded-xl drop-shadow-2xl"
-          />
-
-          <img
-            src="https://cdn.corporatefinanceinstitute.com/assets/Loans-1-1024x666.jpeg"
-            className="w-40 md:w-60 h-[380px] object-cover rounded-xl drop-shadow-2xl"
-          />
+          <div className="flex gap-4">
+            <button
+              className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] shadow-none font-semibold text-white hover:scale-105 transition duration-300 md:mb-0 mb-2"
+              onClick={() => navigate("/all-loan")}
+            >
+              Explore Loans
+            </button>
+          </div>
         </div>
       </div>
     </div>

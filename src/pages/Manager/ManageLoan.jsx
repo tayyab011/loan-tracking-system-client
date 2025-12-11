@@ -27,7 +27,7 @@ const ManageLoan = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors  ,isSubmitting},
   } = useForm({ mode: "onTouched" });
 
   const onLoanSubmit = async (data) => {
@@ -52,7 +52,8 @@ const ManageLoan = () => {
       maxLoanLimit: parseInt(data.maxLoanLimit),
       requiredDocuments: data.requiredDocuments,
       emiPlans: data.emiPlans,
-      image: loanImg, // আগের বা নতুন image
+      image: loanImg, 
+
       showOnHome: data.showOnHome,
     };
 
@@ -96,10 +97,12 @@ if (res.data.acknowledged) {
 }
   return (
     <div>
-      <h1>Manage Loan ({manageLoan.length})</h1>
+      <h1 className="text-2xl md:text-4xl font-bold">
+        Manage Loan ({manageLoan.length})
+      </h1>
       <div className="overflow-x-auto w-full">
         <table className="table table-zebra w-full min-w-[800px]">
-          <thead>
+          <thead className="font-bold">
             <tr>
               <th>#</th>
               <th>Image</th>
@@ -110,7 +113,7 @@ if (res.data.acknowledged) {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="font-bold">
             {manageLoan.map((loan, index) => (
               <tr
                 key={loan._id}
@@ -130,11 +133,16 @@ if (res.data.acknowledged) {
                 <td className="space-x-2">
                   <button
                     onClick={() => updateLoan(loan)}
-                    className="btn btn-xs btn-info"
+                    className="btn btn-sm md:btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
                   >
                     Update
                   </button>
-                  <button onClick={()=>deleteLoan(loan._id)} className="btn btn-xs btn-error">Delete</button>
+                  <button
+                    onClick={() => deleteLoan(loan._id)}
+                    className="btn btn-sm md:btn-md btn-error border-none font-semibold text-white hover:scale-105 transition duration-300"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -143,14 +151,18 @@ if (res.data.acknowledged) {
 
         {modal && (
           <dialog id="my_modal_1" className="modal modal-open">
-            <div className="modal-box max-w-3xl">
-              <h3 className="font-bold text-xl mb-4">Update Loan</h3>
+            <div className="modal-box max-w-3xl bg-[#155C62]">
+              <h3 className="font-bold text-xl md:text-2xl mb-4 text-[#B5F6EB]">
+                Update Loan
+              </h3>
 
               <form onSubmit={handleSubmit(onLoanSubmit)} className="space-y-4">
                 {/* Loan Title */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Loan Title *</span>
+                    <span className="label-text font-bold text-[#B5F6EB]">
+                      Loan Title *
+                    </span>
                   </label>
                   <input
                     {...register("title", { required: true })}
@@ -166,7 +178,9 @@ if (res.data.acknowledged) {
                 {/* Description */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Description *</span>
+                    <span className="label-text font-bold text-[#B5F6EB]">
+                      Description *
+                    </span>
                   </label>
                   <textarea
                     {...register("description", { required: true })}
@@ -183,30 +197,57 @@ if (res.data.acknowledged) {
 
                 {/* Category | Interest | Max Limit */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <input
-                    {...register("category", { required: true })}
-                    defaultValue={modal.category}
-                    className="input input-bordered"
-                    placeholder="Category"
-                  />
-                  <input
-                    {...register("interestRate", { required: true })}
-                    defaultValue={modal.interestRate}
-                    className="input input-bordered"
-                    placeholder="Interest Rate (%)"
-                  />
-                  <input
-                    {...register("maxLoanLimit", { required: true })}
-                    defaultValue={modal.maxLoanLimit}
-                    className="input input-bordered"
-                    placeholder="Max Loan Limit"
-                  />
+                  <div>
+                    <label className="label">
+                      <span className="label-text font-bold text-[#B5F6EB]">
+                        Category
+                      </span>
+                    </label>
+                    <div>
+                      <input
+                        {...register("category", { required: true })}
+                        defaultValue={modal.category}
+                        className="input input-bordered"
+                        placeholder="Category"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="label">
+                      <span className="label-text font-bold text-[#B5F6EB]">
+                        Interest Rate (%)
+                      </span>
+                    </label>
+                    <input
+                      {...register("interestRate", { required: true })}
+                      defaultValue={modal.interestRate}
+                      className="input input-bordered"
+                      placeholder="Interest Rate (%)"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label">
+                      <span className="label-text font-bold text-[#B5F6EB]">
+                        Max Loan Limit
+                      </span>
+                    </label>
+                    <input
+                      {...register("maxLoanLimit", { required: true })}
+                      defaultValue={modal.maxLoanLimit}
+                      className="input input-bordered"
+                      placeholder="Max Loan Limit"
+                    />
+                  </div>
                 </div>
 
                 {/* Required Documents */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Required Documents</span>
+                    <span className="label-text font-bold text-[#B5F6EB]">
+                      Required Documents
+                    </span>
                   </label>
                   <input
                     {...register("requiredDocuments", { required: true })}
@@ -224,7 +265,9 @@ if (res.data.acknowledged) {
                 {/* EMI Plans */}
                 <div>
                   <label className="label">
-                    <span className="label-text">EMI Plans</span>
+                    <span className="label-text font-bold text-[#B5F6EB]">
+                      EMI Plans
+                    </span>
                   </label>
                   <input
                     {...register("emiPlans")}
@@ -236,7 +279,9 @@ if (res.data.acknowledged) {
                 {/* Image */}
                 <div>
                   <label className="label">
-                    <span className="label-text">Image</span>
+                    <span className="label-text font-bold text-[#B5F6EB]">
+                      Image
+                    </span>
                   </label>
                   <input
                     type="file"
@@ -257,7 +302,7 @@ if (res.data.acknowledged) {
                     type="checkbox"
                     {...register("showOnHome")}
                     defaultChecked={modal.showOnHome}
-                    className="toggle toggle-primary"
+                    className="toggle toggle-success"
                   />
                   <span>Show on Home</span>
                 </div>
@@ -271,8 +316,12 @@ if (res.data.acknowledged) {
                   >
                     Cancel
                   </button>
-                  <button type="submit" className="btn btn-primary">
-                    Save Loan
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] font-semibold text-white hover:scale-105 transition duration-300"
+                  >
+                    {isSubmitting ? "Loading..." : "Save Loan"}
                   </button>
                 </div>
               </form>
