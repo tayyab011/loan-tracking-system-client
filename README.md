@@ -1,9 +1,44 @@
-This project is a complete MERN-based loan management platform designed to simplify loan browsing, application handling, and administrative control. The system provides separate functionalities for users, managers, and admins, ensuring a smooth and secure experience for all roles.
+Loan Management System
+
+This project is a full-stack MERN-based Loan Management System designed to handle everything from loan browsing to application processing in a structured and secure way. The goal of this system is to make loan-related tasks easier for users and provide managers/admins with clear tools to manage loans, applications, and user access. The interface is clean, responsive, and focused on delivering a smooth experience across all devices.
 
 Live URL: https://loan-tracking-system.netlify.app
 
-The platform allows users to explore available loans, check details, submit loan applications, track application progress, and manage their profiles. Managers can add new loans, update existing ones, approve or reject applications, verify payments, and manage loan visibility on the home page. Admins have full control over users, including role assignment and suspension functionality to restrict account access when required.
+The platform is divided into three major roles—User, Manager, and Admin.
+Users can explore different loan categories, check details, calculate interest, and submit loan applications through a fully validated form. Every application records the borrower’s information, selected loan details, income, purpose, and timestamp. A user can track their application status and payment status, which updates in real time.
 
-Key features include role-based authentication, loan filtering, home page loan showcasing, form validation, real-time updates using React Query, secure API handling through protected routes, and an intuitive, responsive interface built with Tailwind and DaisyUI. Suspended users are blocked from logging in, whether via email/password or social login, ensuring proper access control. The system also includes EMI details, required documents, image uploads, timestamps, and complete application tracking.
+Managers can create new loans with details like title, category, interest rate, maximum limit, EMI plans, required documents, images, and a visibility toggle for showing loans on the home page. Managers also review loan applications and approve or reject them based on eligibility. Application fee verification and handling is also included.
 
-This project uses several npm packages, including React Router, React Hook Form, Axios, React Query, SweetAlert2, Firebase Authentication, JWT, Express, MongoDB, Cors, Dotenv, and others essential for building a full-stack production application.
+Admins have control over user accounts, including assigning roles and suspending users. When a user is suspended, login access is blocked for both email/password and Google login. This ensures proper security and prevents unauthorized access.
+
+The system uses secure API handling with JWT, Axios interceptors, and protected routes. React Query keeps the UI updated without page reloads. All forms include proper validation, error handling, and instant feedback. The backend is built with Express and MongoDB, following a clean structure for controllers, routes, and middleware.
+
+Key Features
+
+Role-based authentication (User, Manager, Admin)
+
+Loan creation and management with detailed fields
+
+Loan application form with validation and live error handling
+
+Application status tracking and payment status handling
+
+Suspended users are fully restricted from logging in
+
+Home page loan visibility toggle
+
+Pagination, filtering, and search for large data sets
+
+Secure backend protected with JWT and middleware
+
+Real-time updates with React Query
+
+Responsive UI using Tailwind CSS and DaisyUI
+
+Firebase authentication with Google and email/password
+
+Image upload support and timestamped loan creation
+
+NPM Packages Used
+
+React Router, React Hook Form, Axios, @tanstack/react-query, Firebase, SweetAlert2, React Icons, Tailwind CSS, DaisyUI, Express, MongoDB, JSONwebtoken, Cors, Dotenv, and a few additional utilities required for building the project.
