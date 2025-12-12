@@ -1,8 +1,7 @@
 import axios from "axios";
 
-
 const instance = axios.create({
-  baseURL: "http://localhost:5050",
+  baseURL: "https://loan-tracking-system-server.vercel.app",
 });
 const useAxios = () => {
   return instance;

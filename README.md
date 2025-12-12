@@ -1,16 +1,9 @@
-# React + Vite
+This project is a complete MERN-based loan management platform designed to simplify loan browsing, application handling, and administrative control. The system provides separate functionalities for users, managers, and admins, ensuring a smooth and secure experience for all roles.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Live URL: https://loan-tracking-system.netlify.app
 
-Currently, two official plugins are available:
+The platform allows users to explore available loans, check details, submit loan applications, track application progress, and manage their profiles. Managers can add new loans, update existing ones, approve or reject applications, verify payments, and manage loan visibility on the home page. Admins have full control over users, including role assignment and suspension functionality to restrict account access when required.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Key features include role-based authentication, loan filtering, home page loan showcasing, form validation, real-time updates using React Query, secure API handling through protected routes, and an intuitive, responsive interface built with Tailwind and DaisyUI. Suspended users are blocked from logging in, whether via email/password or social login, ensuring proper access control. The system also includes EMI details, required documents, image uploads, timestamps, and complete application tracking.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This project uses several npm packages, including React Router, React Hook Form, Axios, React Query, SweetAlert2, Firebase Authentication, JWT, Express, MongoDB, Cors, Dotenv, and others essential for building a full-stack production application.

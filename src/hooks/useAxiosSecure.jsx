@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { use, useEffect } from "react";
 
@@ -6,7 +5,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthContext";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5050",
+  baseURL: "https://loan-tracking-system-server.vercel.app",
 });
 
 const useAxiosSecure = () => {

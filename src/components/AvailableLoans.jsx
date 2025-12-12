@@ -16,13 +16,11 @@ const AvailableLoans = () => {
 
   return (
     <div className="py-12 w-11/12 mx-auto">
-      <h2 className=" text-2xl md:text-5xl font-bold text-[#1F887A] text-center mb-10">
-        Available Loans
-      </h2>
+      <h2 className="text-3xl md:text-5xl font-bold text-center mb-10">Available Loans</h2>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {loans.map((loan) => (
-          <div
+           <div
             key={loan._id}
             className="card bg-[#155C62] text-[#B5F6EB] shadow-md border"
           >

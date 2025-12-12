@@ -7,6 +7,7 @@ import { use } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../provider/AuthContext";
 import useRole from "../../hooks/useRole";
+import Loader from "../../components/Loader";
 
 const LoanDetails = () => {
   const { id } = useParams();
@@ -15,16 +16,16 @@ const LoanDetails = () => {
   const { user } = use(AuthContext);
   const  {role}  = useRole(); // admin | manager | user
 
-  const { data: loan, isLoading } = useQuery({
-    queryKey: ["loan-details", id],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/all-loans");
-      return res.data.find((l) => l._id === id);
-    },
-  });
+ const { data: loan, isLoading } = useQuery({
+   queryKey: ["loan-details", id],
+   queryFn: async () => {
+     const res = await axiosSecure.get(`/loans/${id}`);
+     return res.data;
+   },
+ });
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading loan details...</div>;
+    return  <Loader/>;
   }
 
   if (!loan) {

@@ -76,9 +76,9 @@ const Navbar = () => {
                 {link}
               </ul>
             </div>
-            <Link to='/' className="btn btn-ghost text-xl">
+            <Link to="/" className="btn btn-ghost text-xl">
               <img
-              className='w-8 h-8 rounded-full'
+                className="w-8 h-8 rounded-full"
                 src="https://t4.ftcdn.net/jpg/01/83/77/65/360_F_183776586_ETr3Lg7pmP2bw0dF2vyNlBaf93eM5TaA.jpg"
                 alt="logo"
               />
@@ -137,10 +137,16 @@ const Navbar = () => {
             ) : (
               <>
                 {" "}
-                <Link to="/login" className="btn">
+                <Link
+                  to="/login"
+                  className="btn btn-sm md:btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] shadow-none font-semibold text-white hover:scale-105 transition duration-300"
+                >
                   Login
                 </Link>
-                <Link to="register" className="btn">
+                <Link
+                  to="register"
+                  className="btn btn-sm md:btn-md border-none bg-[#86A9AB] hover:bg-[#29A6A6] shadow-none font-semibold text-white hover:scale-105 transition duration-300"
+                >
                   Register
                 </Link>
               </>

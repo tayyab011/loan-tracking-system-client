@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../../provider/AuthContext";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { use } from "react";
+import Loader from "../../components/Loader";
 
 const LoanForm = () => {
   const { id } = useParams();
@@ -12,13 +13,13 @@ const LoanForm = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = use(AuthContext);
 
-  const { data: loan, isLoading } = useQuery({
-    queryKey: ["loan", id],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/all-loans");
-      return res.data.find((l) => l._id === id);
-    },
-  });
+ const { data: loan, isLoading } = useQuery({
+   queryKey: ["loan", id],
+   queryFn: async () => {
+     const res = await axiosSecure.get(`/loans/${id}`);
+     return res.data;
+   },
+ });
 
   const {
     register,
@@ -26,7 +27,7 @@ const LoanForm = () => {
     formState: { errors },
   } = useForm({ mode: "onTouched" });
 
-  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (isLoading) return <Loader/>;
 
   const onSubmit = async (data) => {
     const applicationData = {
