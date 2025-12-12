@@ -3,7 +3,8 @@ Loan Management System
 This project is a full-stack MERN-based Loan Management System designed to handle everything from loan browsing to application processing in a structured and secure way. The goal of this system is to make loan-related tasks easier for users and provide managers/admins with clear tools to manage loans, applications, and user access. The interface is clean, responsive, and focused on delivering a smooth experience across all devices.
 
 Live URL: https://loan-tracking-system.netlify.app
-
+admin role experience : email: admin@gmail.com  | password :123456
+manager role experience: email: manager@gmail.com |password: 123456sS
 The platform is divided into three major roles—User, Manager, and Admin.
 Users can explore different loan categories, check details, calculate interest, and submit loan applications through a fully validated form. Every application records the borrower’s information, selected loan details, income, purpose, and timestamp. A user can track their application status and payment status, which updates in real time.
 
